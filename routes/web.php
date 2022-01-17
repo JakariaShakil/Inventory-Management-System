@@ -14,16 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+ 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'users'], function () {
     Route::get('/view','Backend\UserController@view')->name('users.view');
     Route::get('/add','Backend\UserController@add')->name('users.add');
-    Route::get('/store','Backend\UserController@store')->name('users.store');
+    Route::post('/store','Backend\UserController@store')->name('users.store');
     Route::get('/edit/{id}','Backend\UserController@edit')->name('users.edit');
-    Route::get('/update/{id}','Backend\UserController@update')->name('users.update');
+    Route::post('/update/{id}','Backend\UserController@update')->name('users.update');
     Route::get('/delete/{id}','Backend\UserController@delete')->name('users.delete');
     
 });

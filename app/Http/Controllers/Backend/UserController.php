@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function view()
     {
-        $data['allData'] = User::all();
+        $data['allData'] = User::orderby('id','DESC')->get();
         return view('backend.pages.user.view-user',$data);
     }
 
@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function add()
     {
-        //
+        return view('backend.pages.user.add-user');
     }
 
     /**
@@ -37,7 +37,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'user_type' => 'required',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',      
+            'password_confirmation' => 'required|min:6',      
+
+    ]);
+        $data = new User();
+        $data->user_type = $request->user_type;
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->password = bcrypt($request->password);
+        $data->save();
+        return redirect()->route('users.view')->with('success','Data Added Successfully');
+        
     }
 
     /**
@@ -59,7 +74,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $allUserData = User::find($id);
+
+        return view('backend.pages.user.edit-user',compact('allUserData'));
     }
 
     /**
@@ -71,7 +88,30 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'user_type' => 'required',
+            'name' => 'required',
+            'email' => 'required|email',      
+
+    ]);
+        // $data = User::find($id);
+        // $data->user_type = $request->user_type;
+        // $data->name = $request->name;
+        // $data->email = $request->email;
+        // $data->save();
+        
+            $data = User::find($id);
+            
+            $data->update([
+
+                'user_type' => $request->input('user_type'),
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                
+            ]);
+
+            return redirect()->route('users.view')->with('success','Data Updated Successfully');
+        
     }
 
     /**
@@ -82,6 +122,8 @@ class UserController extends Controller
      */
     public function delete($id)
     {
-        //
+        $deleteUser = User::find($id);
+        $deleteUser->delete();
+        return redirect()->route('users.view')->with('success','Data deleted successfully');
     }
 }

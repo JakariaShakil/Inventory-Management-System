@@ -8,3 +8,6 @@
 
  <!-- Bracket CSS -->
  <link rel="stylesheet" href="{{ asset('Backend/css/bracket.css') }}">
+ <link rel="stylesheet" href="{{ asset('Backend/lib/sweetalert/sweetalert.min.css') }}">
+
+ 

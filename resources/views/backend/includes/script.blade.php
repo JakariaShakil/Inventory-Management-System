@@ -22,6 +22,44 @@
 <script src="{{ asset('Backend/js/dashboard.js') }}"></script>
 <script src="{{ asset('Backend/lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('Backend/lib/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{asset('Backend/lib/parsleyjs/parsley.min.js')}}"></script>
+<script src="{{asset('Backend/lib/sweetalert/sweetalert.min.js')}}"></script>
+
+
+@if(Session::has('success'))
+<script>
+  swal("Congratulations","{!! Session::get('success') !!}","success",{
+  button:"ok"
+  });
+</script>
+
+@endif
+
+<script>
+  $(function(){
+    'use strict';
+
+    $('#datatable1').DataTable({
+      responsive: true,
+      language: {
+        searchPlaceholder: 'Search...',
+        sSearch: '',
+        lengthMenu: '_MENU_ items/page',
+      }
+    });
+
+    $('#datatable2').DataTable({
+      bLengthChange: false,
+      searching: false,
+      responsive: true
+    });
+
+    // Select2
+    $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+
+  });
+</script>
+
 
 <script>
   $(function(){
@@ -49,29 +87,5 @@
         $('.show-sub + .br-menu-sub').slideDown();
       }
     }
-  });
-</script>
-<script>
-  $(function(){
-    'use strict';
-
-    $('#datatable1').DataTable({
-      responsive: true,
-      language: {
-        searchPlaceholder: 'Search...',
-        sSearch: '',
-        lengthMenu: '_MENU_ items/page',
-      }
-    });
-
-    $('#datatable2').DataTable({
-      bLengthChange: false,
-      searching: false,
-      responsive: true
-    });
-
-    // Select2
-    $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
-
   });
 </script>

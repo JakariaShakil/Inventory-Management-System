@@ -16,12 +16,14 @@
    
   @include('backend.includes.rightPanel')
    
-  <div class="br-mainpanel">
+  <div class="br-mainpanel notifications top-right">
     @yield('body')
-
+    
+    
     @include('backend.includes.footer')
   </div>   
 
   @include('backend.includes.script')
+  
   </body>
 </html>
