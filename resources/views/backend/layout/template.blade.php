@@ -4,6 +4,7 @@
   @include('backend.includes.header')
   
   @include('backend.includes.css')
+  @stack('css')
    
   </head>
 
@@ -16,12 +17,18 @@
    
   @include('backend.includes.rightPanel')
    
-  <div class="br-mainpanel">
+  <div class="br-mainpanel notifications top-right">
     @yield('body')
-
+    
+    
     @include('backend.includes.footer')
+
   </div>   
 
   @include('backend.includes.script')
+  
+  @stack('scripts')
+ 
+  
   </body>
 </html>

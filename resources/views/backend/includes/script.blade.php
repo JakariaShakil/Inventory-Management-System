@@ -20,17 +20,17 @@
 <script src="{{ asset('Backend/js/map.shiftworker.js') }}"></script>
 <script src="{{ asset('Backend/js/ResizeSensor.js') }}"></script>
 <script src="{{ asset('Backend/js/dashboard.js') }}"></script>
-<script src="{{ asset('Backend/lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('Backend/lib/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('Backend/lib/datatable/jquery.dataTables.min.js') }}"></script>
+
+<script src="{{asset('Backend/lib/parsleyjs/parsley.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <!-- Sweet Alert Js -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
+
 
 <script>
   $(function(){
     'use strict'
-
-    // FOR DEMO ONLY
-    // menu collapsed by default during first page load or refresh with screen
-    // having a size between 992px and 1299px. This is intended on this page only
-    // for better viewing of widgets demo.
     $(window).resize(function(){
       minimizeMenu();
     });
@@ -49,29 +49,5 @@
         $('.show-sub + .br-menu-sub').slideDown();
       }
     }
-  });
-</script>
-<script>
-  $(function(){
-    'use strict';
-
-    $('#datatable1').DataTable({
-      responsive: true,
-      language: {
-        searchPlaceholder: 'Search...',
-        sSearch: '',
-        lengthMenu: '_MENU_ items/page',
-      }
-    });
-
-    $('#datatable2').DataTable({
-      bLengthChange: false,
-      searching: false,
-      responsive: true
-    });
-
-    // Select2
-    $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
-
   });
 </script>
