@@ -164,7 +164,19 @@
               <li><a href=""><i class="icon ion-ios-download"></i> Downloads</a></li>
               <li><a href=""><i class="icon ion-ios-star"></i> Favorites</a></li>
               <li><a href=""><i class="icon ion-ios-folder"></i> Collections</a></li>
-              <li><a href=""><i class="icon ion-power"></i> Sign Out</a></li>
+              <li>{{--start logout --}}
+                <a class="dropdown-item text-left" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();" style="padding:10px 15px;">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>               
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+                {{-- end logout --}}
+</li>
             </ul>
           </div><!-- dropdown-menu -->
         </div><!-- dropdown -->

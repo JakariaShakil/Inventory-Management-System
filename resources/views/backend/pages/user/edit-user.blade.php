@@ -23,7 +23,7 @@
               </div>
             </div>
            
-              <form action="{{ route('users.update',$allUserData->id) }}" method="POST" id="form" data-parsley-validate="">
+              <form action="{{ route('users.update',$allUserData->id) }}" method="POST" id="form" data-parsley-validate="" enctype="multipart/form-data">
                 @csrf
                 <div class="br-section-wrapper">
                   <div class="form-layout form-layout-1">
@@ -41,6 +41,8 @@
                          
                         </div>
                       </div>
+
+                      
                       <div class="col-lg-4">
                         <div class="form-group">
                           <label class="form-control-label">Name<span class="tx-danger">*</span></label>
@@ -52,6 +54,7 @@
                           @enderror 
                         </div>
                       </div>
+
                       <div class="col-lg-4">
                         <div class="form-group">
                           <label class="form-control-label">Email<span class="tx-danger">*</span></label>
@@ -61,6 +64,19 @@
                               <strong > {{ $message }}</strong>
                           </span>        
                           @enderror
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <label class="form-control-label">Image<span class="tx-danger">*</span></label>
+                          @if (!is_null($allUserData->image))
+                          <img src="{{ asset('Backend/img/user') }}/{{$allUserData->image }}" alt="" width="35">
+                          @else
+                            No Thumbnail
+                          @endif
+                          <br>
+                          <input type="file" name="image" class="form-control-file">
                         </div>
                       </div>
                       

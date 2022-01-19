@@ -4,6 +4,7 @@
   @include('backend.includes.header')
   
   @include('backend.includes.css')
+  @stack('css')
    
   </head>
 
@@ -21,9 +22,13 @@
     
     
     @include('backend.includes.footer')
+
   </div>   
 
   @include('backend.includes.script')
+  
+  @stack('scripts')
+ 
   
   </body>
 </html>
