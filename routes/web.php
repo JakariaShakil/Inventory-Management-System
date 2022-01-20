@@ -48,6 +48,14 @@ Route::group(['prefix' => 'customers'], function () {
     Route::post('/update/{id}','Backend\CustomerController@update')->name('customers.update');
     Route::delete('/delete/{id}','Backend\CustomerController@delete')->name('customers.delete');
 });
+Route::group(['prefix' => 'categories'], function () {
+    Route::get('/view','Backend\CategoryController@view')->name('categories.view');
+    Route::get('/add','Backend\CategoryController@add')->name('categories.add');
+    Route::post('/store','Backend\CategoryController@store')->name('categories.store');
+    Route::get('/edit/{id}','Backend\CategoryController@edit')->name('categories.edit');
+    Route::post('/update/{id}','Backend\CategoryController@update')->name('categories.update');
+    Route::delete('/delete/{id}','Backend\CategoryController@delete')->name('categories.delete');
+});
 Route::group(['prefix' => 'units'], function () {
     Route::get('/view','Backend\UnitController@view')->name('units.view');
     Route::get('/add','Backend\UnitController@add')->name('units.add');
