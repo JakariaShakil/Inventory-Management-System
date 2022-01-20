@@ -23,14 +23,15 @@
               </div>
             </div><!-- card-header -->
             <div class="card-body">
-              <table id="datatable1" class="table display responsive nowrap">
+              <table id="example"  class="display" style="width:100%">
                 <thead>
                   <tr>
-                    <th class="wd-15p">SL.</th>
-                    <th class="wd-15p">Role</th>
-                    <th class="wd-20p">Name</th>
-                    <th class="wd-15p">E-mail</th>
-                    <th class="wd-10p">Action</th>
+                    <th>SL.</th>
+                    <th>Image</th>
+                    <th>Role</th>
+                    <th>Name</th>
+                    <th>E-mail</th>
+                    <th>Action</th>
                    
                   </tr>
                 </thead>
@@ -38,12 +39,30 @@
                   @foreach ($allData as $key => $user )
                   <tr>
                     <td>{{ $key+1 }}</td>
+                    <td>
+                      @if (!is_null($user->image))
+                      <img src="{{ asset('Backend/img/user') }}/{{ $user->image }}" alt="" width="35">
+                      @else
+                        No Thumbnail
+                      @endif
+                    </td>
                     <td>{{ $user->user_type }}</td>
                     <td>{{ $user->name }}</td>
+                   
                     <td>{{ $user->email }}</td>
                     <td>
                       <a href="{{ route('users.edit',$user->id) }}" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit"></i></a>
-                      <a href="{{ route('users.delete',$user->id) }}" class="btn btn-sm btn-danger" title="Delete"><i class="fa fa-trash"></i></a>
+                      {{-- <a href="{{ route('users.delete',$user->id) }}" class="btn btn-sm btn-danger" title="Delete"><i class="fa fa-trash"></i></a> --}}
+                      <button class="btn btn-danger btn-sm" type="button" onclick="deleteItem({{ $user->id }})">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                      <form id="delete-form-{{ $user->id }}" action="{{ route('users.delete', $user->id) }}" method="post"
+                        style="display:none;">
+                      @csrf
+                      @method('DELETE')
+                      
+                    
+                  </form>
                     </td>   
                   </tr>
                   @endforeach
@@ -59,3 +78,97 @@
   
   
 @endsection
+
+@push('scripts')
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#example').DataTable( {
+          initComplete: function () {
+              this.api().columns().every( function () {
+                  var column = this;
+                  var select = $('<select><option value=""></option></select>')
+                      .appendTo( $(column.footer()).empty() )
+                      .on( 'change', function () {
+                          var val = $.fn.dataTable.util.escapeRegex(
+                              $(this).val()
+                          );
+   
+                          column
+                              .search( val ? '^'+val+'$' : '', true, false )
+                              .draw();
+                      } );
+   
+                  column.data().unique().sort().each( function ( d, j ) {
+                      select.append( '<option value="'+d+'">'+d+'</option>' )
+                  } );
+              } );
+          }
+      } );
+  } );
+  
+  </script>
+
+<script>
+  @if(Session::has('message'))
+  toastr.options =
+  {
+    "closeButton" : true,
+    "progressBar" : true
+  }
+      toastr.success("{{ session('message') }}");
+  @endif
+
+  @if(Session::has('info'))
+  toastr.options =
+  {
+    "closeButton" : true,
+    "progressBar" : true
+  }
+      toastr.info("{{ session('info') }}");
+  @endif
+
+  @if(Session::has('warning'))
+  toastr.options =
+  {
+    "closeButton" : true,
+    "progressBar" : true
+  }
+      toastr.warning("{{ session('warning') }}");
+  @endif
+
+</script> 
+ <script type="text/javascript">
+  function deleteItem(id) {
+      const swalWithBootstrapButtons = swal.mixin({
+          confirmButtonClass: 'btn btn-success',
+          cancelButtonClass: 'btn btn-danger',
+          buttonsStyling: false,
+      })
+      swalWithBootstrapButtons({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          reverseButtons: true
+      }).then((result) => {
+          if (result.value) {
+              event.preventDefault();
+              document.getElementById('delete-form-'+id).submit();
+          } else if (
+              // Read more about handling dismissals
+              result.dismiss === swal.DismissReason.cancel
+          ) {
+              swalWithBootstrapButtons(
+                  'Cancelled',
+                  'Your data is safe :)',
+                  'error'
+              )
+          }
+      })
+  }
+</script>
+  
+@endpush
