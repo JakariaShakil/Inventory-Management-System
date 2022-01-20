@@ -124,6 +124,7 @@ class UserController extends Controller
           Image::make($image)->save($location);
           $data->image = $img;
         }
+<<<<<<< HEAD
 
         $data->name = $request->name;
         $data->email = $request->email;
@@ -157,6 +158,15 @@ class UserController extends Controller
         //     ]);
 
             //return redirect()->route('users.view')->with('info','Data Updated Successfully');
+=======
+
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->password = bcrypt($request->password);
+        $data->save();
+        return redirect()->route('users.view')->with('info','Data Updated Successfully');
+        
+>>>>>>> 2b6cad4f839889b6a5d0aa22971c42eaa0ef2f56
         
     }
 
