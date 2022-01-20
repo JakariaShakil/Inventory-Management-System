@@ -18,7 +18,7 @@ class SupplierController extends Controller
      */
     public function view()
     {
-        $data['allData'] = Supplier::orderBy('id','desc')->get();
+        $data['allData'] = Supplier::all();
         return view('backend.pages.supplier.view-supplier',$data);
     }
 

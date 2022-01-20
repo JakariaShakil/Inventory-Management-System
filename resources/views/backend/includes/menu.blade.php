@@ -12,7 +12,7 @@
         
         <li class="br-menu-item">
           <a href="#" class="br-menu-link with-sub">
-            <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+            <i class="fas fa-user"></i>
             <span class="menu-item-label">Manage User</span>
           </a><!-- br-menu-link -->
           <ul class="br-menu-sub" @if(Request::is('users.users.view'))
@@ -24,7 +24,7 @@
         </li>
         <li class="br-menu-item">
           <a href="#" class="br-menu-link with-sub">
-            <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+            <i class="fas fa-truck"></i>
             <span class="menu-item-label">Manage Supplier</span>
           </a><!-- br-menu-link -->
           <ul class="br-menu-sub">
@@ -32,16 +32,26 @@
             
           </ul>
         </li>
+
         <li class="br-menu-item">
           <a href="#" class="br-menu-link with-sub">
-            <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+            <i class="fa fa-users"></i>
             <span class="menu-item-label">Manage Customer</span>
           </a><!-- br-menu-link -->
           <ul class="br-menu-sub">
             <li class="sub-item"><a href="{{ route('customers.view') }}" class="sub-link">View Customer</a></li>
-            
-        
-      </ul><!-- br-sideleft-menu -->
+      </ul>
+    </li>
+
+        <li class="br-menu-item">
+          <a href="#" class="br-menu-link with-sub">
+            <i class="fa fa-balance-scale"></i>
+            <span class="menu-item-label">Manage Unit</span>
+          </a><!-- br-menu-link -->
+          <ul class="br-menu-sub">
+            <li class="sub-item"><a href="{{ route('units.view') }}" class="sub-link">View Unit</a></li>
+      </ul>
+    </li>
 
       <br>
     </div><!-- br-sideleft -->

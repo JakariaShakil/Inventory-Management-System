@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function view()
     {
-        $data['allData'] = User::orderBy('id','desc')->get();
+        $data['allData'] = User::all();
         return view('backend.pages.user.view-user',$data);
     }
 
@@ -131,32 +131,6 @@ class UserController extends Controller
         $data->save();
         return redirect()->route('users.view')->with('info','Data Updated Successfully');
         
-
-        //     if(!is_null($request->image))
-        // {
-        //     if( File::exists('Backend/img/user/' . $data->image) ){
-        //         File::delete('Backend/img/user/' . $data->image);
-        //     }
-        //     $image = $request->file('image') ;
-        //     $img = rand() . '.' .$image->getClientOriginalExtension();
-        //     $location = public_path('Backend/img/user/' . $img);
-        //     Image::make($image)->save($location);
-        //     $data->image = $img;
-
-        // }
-       
-            
-        //     $data->update([
-
-        //         'user_type' => $request->input('user_type'),
-        //         'name' => $request->input('name'),
-        //         'email' => $request->input('email'),
-        //         'image' =>$img,
-                
-                
-        //     ]);
-
-            //return redirect()->route('users.view')->with('info','Data Updated Successfully');
         
     }
 

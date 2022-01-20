@@ -2,26 +2,22 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Image;
-use App\Customer;
-use App\Http\Controllers\Controller;
+use App\Unit;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 
-class CustomerController extends Controller
+class UnitController extends Controller
 {
-    
-
-       /**
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function view()
     {
-        $data['allData'] = Customer::all();
-        return view('backend.pages.customer.view-customer',$data);
+        $data['allData'] = Unit::all();
+        return view('backend.pages.unit.view-unit',$data);
     }
 
     /**
@@ -31,7 +27,7 @@ class CustomerController extends Controller
      */
     public function add()
     {
-        return view('backend.pages.customer.add-customer');
+        return view('backend.pages.unit.add-unit');
     }
 
     /**
@@ -42,20 +38,19 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
 
+            'name' => 'required',       
 
-    $data = new Customer();
+    ]);
+
+    $data = new Unit();
     $data->name = $request->name;
-    $data->email = $request->email;
-    $data->mobile = $request->mobile;    
-    $data->address = $request->address;
     $data->created_by = Auth::user()->id;
     $data->save();
 
-
-    return redirect()->route('customers.view')->with('message','Data Added Successfully');
-    
-        
+    return redirect()->route('units.view')->with('message','Data Added Successfully');
+ 
     }
 
     /**
@@ -77,9 +72,9 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $allCustomerData = Customer::find($id);
+        $allUnitData = Unit::find($id);
 
-        return view('backend.pages.customer.edit-customer',compact('allCustomerData'));
+        return view('backend.pages.unit.edit-unit',compact('allUnitData'));
     }
 
     /**
@@ -93,26 +88,17 @@ class CustomerController extends Controller
     {
         $this->validate($request,[
            
-            'name' => 'required',
-            'mobile' => 'required',
-            'address' => 'required',
-            
-                
+            'name' => 'required',         
 
     ]);
 
-            $data = Customer::find($id);
+            $data = Unit::find($id);
             $data->name = $request->name;
-        
-            $data->mobile = $request->mobile;   
-            $data->email = $request->email;  
-            $data->address = $request->address;
             $data->save();
 
 
-            return redirect()->route('customers.view')->with('info','Data Updated Successfully');
+            return redirect()->route('units.view')->with('info','Data Updated Successfully');
                 
-       
         
     }
 
@@ -124,11 +110,10 @@ class CustomerController extends Controller
      */
     public function delete($id)
     {
-        $deleteCustomer = Customer::find($id);
-
-         $deleteCustomer ->delete();
+        $deleteUnit = Unit::find($id);
         
-       
-        return redirect()->route('customers.view')->with('warning','Data deleted successfully');
+        $deleteUnit ->delete();
+
+        return redirect()->route('units.view')->with('warning','Data deleted successfully');
     }
 }
