@@ -29,6 +29,7 @@
                       <tr>
                         <th>SL.</th>
                         <th>Image</th>
+                        <th>Name</th>
                         <th>Mobile</th>
                         <th>E-mail</th>
                         <th>Type</th>
@@ -50,6 +51,7 @@
                             No Thumbnail
                           @endif
                         </td>
+                        <td>{{ $supplier->name }}</td>
                         <td>{{ $supplier->mobile }}</td>
                         <td>{{ $supplier->email }}</td>
                        
@@ -68,8 +70,6 @@
                             style="display:none;">
                           @csrf
                           @method('DELETE')
-                          
-                        
                       </form>
                         </td>   
                       </tr>

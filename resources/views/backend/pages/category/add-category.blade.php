@@ -1,7 +1,7 @@
 @extends('backend.layout.template')
 
 @section('body')
-@if(session()->has('success'))
+{{-- @if(session()->has('success'))
 
 <script type="text/javascript">
 
@@ -11,7 +11,7 @@
 
 </script>
 
-@endif
+@endif --}}
 
 <div class="br-pagetitle">
     <i class="icon ion-ios-home-outline"></i>
@@ -29,12 +29,12 @@
                 <h2 class="text-secondary">Add Category</h2>
               </div>
               <div class="tx-24 hidden-xss-down">
-                <a href="{{ route('categories.view') }}" class="btn btn-info btn-sm float-right text-white"><i class="fa fa-list"></i>Categor List</a>
+                <a href="{{ route('categories.view') }}" class="btn btn-info btn-sm float-right text-white"><i class="fa fa-list"></i>Category List</a>
             
               </div>
             </div><!-- card-header -->
            
-            <form action="{{ route('categories.store') }}" method="POST" id="form" data-parsley-validate="" enctype="multipart/form-data">
+            <form action="{{ route('categories.store') }}" method="POST" id="form" data-parsley-validate="" >
               @csrf
               <div class="br-section-wrapper">
                 <div class="form-layout form-layout-1">
@@ -43,7 +43,7 @@
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label">Category Name<span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="name" value="{{ old('name') }}"  required="" data-parsley-trigger="keyup" data-parsley-pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+" >
+                        <input class="form-control  @error('name') is-invalid @enderror" type="text" name="name" value="{{ old('name') }}"  required="" data-parsley-trigger="keyup">
 
                         @error('name')
                         <span class="invalid-feedback " role="alert">

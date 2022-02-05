@@ -19,7 +19,7 @@
                 <h2 class="text-secondary">Edit Category</h2>
               </div>
               <div class="tx-24 hidden-xss-down">
-                <a href="{{ route('categories.view') }}" class="btn btn-info btn-sm float-right text-white"><i class="fa fa-list"></i>Customer List</a>
+                <a href="{{ route('categories.view') }}" class="btn btn-info btn-sm float-right text-white"><i class="fa fa-list"></i>Category List</a>
             
               </div>
             </div><!-- card-header -->
@@ -33,7 +33,7 @@
                       <div class="col-lg-4">
                         <div class="form-group">
                           <label class="form-control-label">Category Name<span class="tx-danger">*</span></label>
-                          <input class="form-control" type="text" name="name" value="{{  $allCategoryData->name }}"  required="" data-parsley-trigger="keyup" data-parsley-pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+" >
+                          <input class="form-control" type="text" name="name" value="{{  $allCategoryData->name }}"  required="" data-parsley-trigger="keyup" >
 
                           @error('name')
                           <span class="invalid-feedback " role="alert">

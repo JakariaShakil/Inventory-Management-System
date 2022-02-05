@@ -42,7 +42,7 @@ class UserController extends Controller
     {
         $this->validate($request,[
             'user_type' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',      
@@ -124,7 +124,6 @@ class UserController extends Controller
           Image::make($image)->save($location);
           $data->image = $img;
         }
-<<<<<<< HEAD
 
         $data->name = $request->name;
         $data->email = $request->email;
@@ -132,41 +131,6 @@ class UserController extends Controller
         $data->save();
         return redirect()->route('users.view')->with('info','Data Updated Successfully');
         
-
-        //     if(!is_null($request->image))
-        // {
-        //     if( File::exists('Backend/img/user/' . $data->image) ){
-        //         File::delete('Backend/img/user/' . $data->image);
-        //     }
-        //     $image = $request->file('image') ;
-        //     $img = rand() . '.' .$image->getClientOriginalExtension();
-        //     $location = public_path('Backend/img/user/' . $img);
-        //     Image::make($image)->save($location);
-        //     $data->image = $img;
-
-        // }
-       
-            
-        //     $data->update([
-
-        //         'user_type' => $request->input('user_type'),
-        //         'name' => $request->input('name'),
-        //         'email' => $request->input('email'),
-        //         'image' =>$img,
-                
-                
-        //     ]);
-
-            //return redirect()->route('users.view')->with('info','Data Updated Successfully');
-=======
-
-        $data->name = $request->name;
-        $data->email = $request->email;
-        $data->password = bcrypt($request->password);
-        $data->save();
-        return redirect()->route('users.view')->with('info','Data Updated Successfully');
-        
->>>>>>> 2b6cad4f839889b6a5d0aa22971c42eaa0ef2f56
         
     }
 

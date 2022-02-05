@@ -12,7 +12,8 @@
 <script src="{{ asset('Backend/lib/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
 <script src="{{ asset('Backend/lib/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
 <script src="{{ asset('Backend/lib/echarts/echarts.min.js') }}"></script>
-<script src="{{ asset('Backend/lib/select2/js/select2.full.min.js') }}"></script>
+
+
 <script src="http://maps.google.com/maps/api/js?key=AIzaSyAq8o5-8Y5pudbJMJtDFzb8aHiWJufa5fg"></script>
 <script src="{{ asset('Backend/lib/gmaps/gmaps.min.js') }}"></script>
 
@@ -26,6 +27,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <!-- Sweet Alert Js -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
+{{-- <script src="{{ asset('Backend/lib/select2/js/select2.full.min.js') }}"></script> --}}
+
+
+
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 
 
 <script>
@@ -51,3 +57,5 @@
     }
   });
 </script>
+
+  

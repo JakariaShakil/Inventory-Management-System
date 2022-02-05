@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Image;
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
+
 
 class CategoryController extends Controller
 {
@@ -42,7 +41,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+           
+            'name' => 'required|unique:categories,name',
+                
 
+    ]);
 
     $data = new Category();
     $data->name = $request->name;

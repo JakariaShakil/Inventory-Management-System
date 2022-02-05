@@ -1,7 +1,8 @@
 @extends('backend.layout.template')
 
 @section('body')
-@if(session()->has('success'))
+
+{{-- @if(session()->has('success'))
 
 <script type="text/javascript">
 
@@ -11,7 +12,7 @@
 
 </script>
 
-@endif
+@endif --}}
 
 <div class="br-pagetitle">
     <i class="icon ion-ios-home-outline"></i>

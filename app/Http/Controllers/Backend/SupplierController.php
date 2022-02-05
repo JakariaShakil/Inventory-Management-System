@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Image;
 use App\Supplier;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Image;
 use Illuminate\Support\Facades\File;
 
 class SupplierController extends Controller
