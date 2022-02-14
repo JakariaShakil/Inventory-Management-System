@@ -31,6 +31,17 @@ Route::group(['prefix' => 'users'], function () {
     
 });
 
+Route::group(['prefix' => 'profile'], function () {
+    Route::get('/view','Backend\ProfileController@viewProfile')->name('profile.view');
+    Route::get('/edit/{id}','Backend\ProfileController@editProfile')->name('profile.edit');
+    Route::post('/update/{id}','Backend\ProfileController@updateProfile')->name('profile.update');
+    Route::get('/password/view','Backend\ProfileController@viewPassword')->name('profile.password.view');
+    Route::post('/password/update','Backend\ProfileController@updatePassword')->name('profile.password.update');
+    
+   
+    
+});
+
 Route::group(['prefix' => 'suppliers'], function () {
     Route::get('/view','Backend\SupplierController@view')->name('suppliers.view');
     Route::get('/add','Backend\SupplierController@add')->name('suppliers.add');

@@ -62,8 +62,13 @@
 
                         </div>
 
+                        
+
                         <!-- Submit button -->
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                        <div class="form-group mt-3">
+                            <p class="text-center">Don't have account? <a href="{{ route('register') }}" id="signup">Sign up here</a></p>
+                         </div>
                     </form>
                 </div>
             </div>

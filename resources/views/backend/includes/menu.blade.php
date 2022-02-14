@@ -15,7 +15,7 @@ $route = Route::current()->getName();
         <label class="sidebar-label pd-x-10 mg-t-25 mg-b-20 tx-info">Inventory Functionality</label>
         
 
-        <li class="br-menu-item  ">
+        <li class="br-menu-item ">
             <a href="#" class="br-menu-link with-sub treeview {{ ($prefix == '/users')?'show-sub':'' }}">
                 <i class="fas fa-user"></i>
                 <span class="menu-item-label">Manage User</span>
