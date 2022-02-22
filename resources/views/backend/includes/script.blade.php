@@ -22,11 +22,15 @@
 <script src="{{ asset('Backend/js/ResizeSensor.js') }}"></script>
 <script src="{{ asset('Backend/js/dashboard.js') }}"></script>
 <script src="{{ asset('Backend/lib/datatable/jquery.dataTables.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="{{asset('Backend/lib/parsleyjs/parsley.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <!-- Sweet Alert Js -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
+
+  <!--- Notify js Start --->
+  <script src="{{ asset('Backend/lib/notify.js/notify.js') }}"></script>
 {{-- <script src="{{ asset('Backend/lib/select2/js/select2.full.min.js') }}"></script> --}}
 
 

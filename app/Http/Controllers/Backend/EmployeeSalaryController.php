@@ -41,10 +41,7 @@ class EmployeeSalaryController extends Controller
     	$salaryData->effected_date = $request->effected_date;
     	$salaryData->save();
 
-    	// $notification = array(
-    	// 	'message' => 'Employee Salary Increment Successfully',
-    	// 	'alert-type' => 'success'
-    	// );
+    	
 
     	return redirect()->route('employees.salary.view')->with('message','salary incremented successfull');
 
@@ -54,7 +51,6 @@ class EmployeeSalaryController extends Controller
     public function SalaryDetails($id){
     	$data['details'] = Employee::find($id);
     	$data['employeeSalary'] = EmployeeSalary::where('employee_id',$data['details']->id)->get();
-    	//dd($data['salary_log']->toArray());
     	return view('backend.pages.employee.salary.details-employee-salary',$data);
 
     }

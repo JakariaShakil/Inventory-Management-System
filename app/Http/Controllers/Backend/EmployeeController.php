@@ -32,12 +32,13 @@ public function store(Request $request)
         'role' => 'required',
         'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',       
         'name' => 'required',       
-        'email' => 'required|email',       
-        'phone' => 'required',       
+        'email' => 'required|email|unique:employees,email',       
+        'phone' => 'required|numeric|unique:employees,phone',       
         'address' => 'required',       
         'gender' => 'required',       
         'join_date' => 'required',       
-        'salary' => 'required',       
+        'salary' => 'numeric',       
+            
 
 ]);
 
@@ -93,11 +94,11 @@ public function update(Request $request, $id)
         'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',        
         'name' => 'required',       
         'email' => 'required|email',       
-        'phone' => 'required',       
+        'phone' => 'required|numeric',       
         'address' => 'required',       
         'gender' => 'required',       
         'join_date' => 'required',       
-        'salary' => 'required',       
+        'salary' => 'numeric',       
 
     ]);
             $data = Employee::find($id);

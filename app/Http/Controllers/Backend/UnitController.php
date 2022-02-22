@@ -40,7 +40,7 @@ class UnitController extends Controller
     {
         $this->validate($request,[
 
-            'name' => 'required',       
+            'name' => 'required|unique:units,name',       
 
     ]);
 

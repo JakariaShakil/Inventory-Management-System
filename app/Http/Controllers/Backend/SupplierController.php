@@ -40,19 +40,20 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-    //     $this->validate($request,[
+        $this->validate($request,[
             
             
-    //         'name' => 'required',
-    //         'mobile' => 'required',
-    //         'type' => 'required',
-    //         'address' => 'required',
-    //         'city' => 'required',
-    //         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'mobile' => 'required|numeric|unique:suppliers,mobile',
+            'type' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'account_number' => 'numeric',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
            
                  
 
-    // ]);
+    ]);
 
     $data = new Supplier();
     $data->type = $request->type;
@@ -121,11 +122,12 @@ class SupplierController extends Controller
         $this->validate($request,[
            
             'name' => 'required',
-            'mobile' => 'required',
+            'mobile' => 'required|numeric',
             'type' => 'required',
             'address' => 'required',
             'city' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'account_number' => 'numeric',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 
 
     ]);
@@ -156,37 +158,7 @@ class SupplierController extends Controller
 
             return redirect()->route('suppliers.view')->with('info','Data Updated Successfully');
                 
-        //     $data = Supplier::find($id);
-
-        //     if(!is_null($request->image))
-        // {
-        //     if( File::exists('Backend/img/supplier/' . $data->image) ){
-        //         File::delete('Backend/img/supplier/' . $data->image);
-        //     }
-            
-        //     $image = $request->file('image') ;
-        //     $img = rand() . '.' .$image->getClientOriginalExtension();
-        //     $location = public_path('Backend/img/supplier/' . $img);
-        //     Image::make($image)->save($location);
-        //     $data->image = $img;
-
-        // }
-       
-            
-        //     $data->update([
-
-        //         'type' => $request->input('type'),
-        //         'name' => $request->input('name'),
-        //         'email' => $request->input('email'),
-        //         'mobile' => $request->input('mobile'),
-        //         'city' => $request->input('city'),
-        //         'account_number' => $request->input('account_number'),
-        //         'image' =>$img,
-                
-                
-        //     ]);
-
-        //     return redirect()->route('suppliers.view')->with('info','Data Updated Successfully');
+     
         
     }
 

@@ -68,7 +68,7 @@
                             <td> {{ date('d-m-Y',strtotime($value->join_date))  }}</td>
                             <td> {{ $value->salary }}</td>
                             <td>
-                                <a title="Increment" href="{{ route('employees.salary.increment',$value->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus-circle"></i></a>
+                                <a title="Increment" href="{{ route('employees.salary.increment',$value->id) }}" class="btn btn-sm btn-info"><i class="fa fa-plus-circle"></i></a>
                                
                                 <a title="Details" target="_blank"
                                 href="{{ route('employees.salary.details',$value->id) }}" class="btn btn-danger btn-sm"><i

@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class EmployeeAttendanceController extends Controller
 {
     public function AttendanceView(){
-        $data['allData'] = EmployeeAttendance::select('date')->groupBy('date')->get();
+        $data['allData'] = EmployeeAttendance::select('date')->groupBy('date')->orderBy('date','desc')->get();
     	// $data['allData'] = EmployeeAttendance::orderBy('id','DESC')->get();
     	return view('backend.pages.employee.attendance.employee_attendance_view',$data);
     }
@@ -34,12 +34,7 @@ class EmployeeAttendanceController extends Controller
     		$attend->employee_id = $request->employee_id[$i];
     		$attend->attend_status = $request->$attend_status;
     		$attend->save();
-    	} // end For Loop
-
- 		// $notification = array(
-    	// 	'message' => 'Employee Attendace Data Update Successfully',
-    	// 	'alert-type' => 'success'
-    	// );
+    	} 
 
     	return redirect()->route('employee.attendance.view')->with('message','Attendence taken Successfull');
 
@@ -49,7 +44,6 @@ class EmployeeAttendanceController extends Controller
 
     public function AttendanceEdit($date){
     	$data['editData'] = EmployeeAttendance::where('date',$date)->get();
-    	// $data['employees'] = Employee::where('usertype','employee')->get();
     	return view('backend.pages.employee.attendance.employee_attendance_edit',$data);
     }
 
@@ -64,12 +58,7 @@ class EmployeeAttendanceController extends Controller
     		$attend->employee_id = $request->employee_id[$i];
     		$attend->attend_status = $request->$attend_status;
     		$attend->save();
-    	} // end For Loop
-
- 		// $notification = array(
-    	// 	'message' => 'Employee Attendace Data Update Successfully',
-    	// 	'alert-type' => 'success'
-    	// );
+    	} 
 
     	return redirect()->route('employee.attendance.view')->with('message','Attendence taken Successfull');
 

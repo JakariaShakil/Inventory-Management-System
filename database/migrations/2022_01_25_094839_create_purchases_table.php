@@ -27,6 +27,7 @@ class CreatePurchasesTable extends Migration
             $table->date('date');     
             $table->double('buying_quantity');
             $table->double('unit_price');
+            $table->double('unit_selling_price');
             $table->double('buying_price');
             $table->string('description')->nullable();
             $table->tinyInteger('status')->default('0')->comment('0=Pending,1=Approved');

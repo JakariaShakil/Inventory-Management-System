@@ -2,17 +2,7 @@
 
 @section('body')
 
-{{-- @if(session()->has('success'))
 
-<script type="text/javascript">
-
- $(function(){
-   $.notify("{{ session()->get('success') }}",{globalPosition:'top right',className:'success'});
- });
-
-</script>
-
-@endif --}}
 
 <div class="br-pagetitle">
     <i class="icon ion-ios-home-outline"></i>
@@ -35,7 +25,7 @@
               </div>
             </div><!-- card-header -->
            
-              <form action="{{ route('units.store') }}" method="POST" id="form" data-parsley-validate="" >
+              <form action="{{ route('units.store') }}" method="POST" >
                 @csrf
                 <div class="br-section-wrapper">
                   <div class="form-layout form-layout-1">
@@ -45,7 +35,7 @@
                       <div class="col-lg-4">
                         <div class="form-group">
                           <label class="form-control-label">Name<span class="tx-danger">*</span></label>
-                          <input class="form-control" type="text" name="name" value="{{ old('name') }}"   data-parsley-trigger="keyup" required="" >
+                          <input class="form-control  @error('name') is-invalid @enderror" type="text" name="name" value="{{ old('name') }}"  >
 
                           @error('name')
                           <span class="invalid-feedback " role="alert">
@@ -73,18 +63,7 @@
 
   </div>
 
-  <script type="text/javascript">
-    $(function () {
-      $('#form').parsley().on('field:validated', function() {
-        var ok = $('.parsley-error').length === 0;
-        $('.bs-callout-info').toggleClass('hidden', !ok);
-        $('.bs-callout-warning').toggleClass('hidden', ok);
-      })
-      .on('form:submit', function() {
-        return false; // Don't submit form for this demo
-      });
-    });
-    </script>
+
   
 @endsection
 

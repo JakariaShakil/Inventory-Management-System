@@ -5,7 +5,7 @@
 <div class="br-pagetitle">
     <i class="icon ion-ios-home-outline"></i>
     <div>
-        <h4>Manage Suppliers</h4>
+        <h4>Manage Stocks</h4>
 
     </div>
 </div>
@@ -31,8 +31,8 @@
                       <th>Supplier Name</th>
                       <th>Product Category</th>
                       <th>Product Name</th>
-                      <th>In (Stock)</th>
-                      <th>Out (Stock)</th>
+                      <th>Purchase (Stock)</th>
+                      <th>Sell Qty</th>
                       <th>Current Stock</th>
                     </tr>
                   </thead>
@@ -40,7 +40,7 @@
                      @foreach($products as $key => $product)
                      @php 
                      $purchase_stock = App\Purchase::where('category_id', $product->category_id)->where('product_id',$product->id)->where('status', '1')->sum('buying_quantity');
-                    //  $selling_stock  = App\invoiceDetail::where('category_id',$product->category_id)->where('product_id', $product->id)->where('status', '1')->sum('selling_quantity');
+                      $selling_stock  = App\invoiceDetail::where('category_id',$product->category_id)->where('product_id', $product->id)->where('status', '1')->sum('selling_quantity');
                      @endphp
                      <tr>
                        <td>{{ $key+1 }}</td>
@@ -52,7 +52,7 @@
                        {{ $product['unit']['name'] }}
                      </td>
                        <td>
-                         {{-- {{ $selling_stock }} --}}
+                         {{ $selling_stock }}
                          {{ $product['unit']['name'] }}
                        </td>
                        <td>
@@ -102,64 +102,7 @@ $(document).ready(function() {
 
 </script>
 
-<script>
-    @if(Session::has('message'))
-    toastr.options = {
-        "closeButton": true,
-        "progressBar": true
-    }
-    toastr.success("{{ session('message') }}");
-    @endif
 
-    @if(Session::has('info'))
-    toastr.options = {
-        "closeButton": true,
-        "progressBar": true
-    }
-    toastr.info("{{ session('info') }}");
-    @endif
 
-    @if(Session::has('warning'))
-    toastr.options = {
-        "closeButton": true,
-        "progressBar": true
-    }
-    toastr.warning("{{ session('warning') }}");
-    @endif
-
-</script>
-<script type="text/javascript">
-    function deleteItem(id) {
-        const swalWithBootstrapButtons = swal.mixin({
-            confirmButtonClass: 'btn btn-success',
-            cancelButtonClass: 'btn btn-danger',
-            buttonsStyling: false,
-        })
-        swalWithBootstrapButtons({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                event.preventDefault();
-                document.getElementById('delete-form-' + id).submit();
-            } else if (
-                // Read more about handling dismissals
-                result.dismiss === swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons(
-                    'Cancelled',
-                    'Your data is safe :)',
-                    'error'
-                )
-            }
-        })
-    }
-
-</script>
 
 @endpush

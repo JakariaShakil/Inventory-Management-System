@@ -39,7 +39,7 @@
                         <td>{{ $key+1 }}</td>              
                         <td>{{ $unit->name }}</td>                      
                         <td>
-                          <a href="{{ route('units.edit',$unit->id) }}" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit"></i></a>
+                          <a href="{{ route('units.edit',$unit->id) }}" class="btn btn-sm btn-info" title="Edit"><i class="fa fa-edit"></i></a>
                           <button class="btn btn-danger btn-sm" type="button" onclick="deleteItem({{ $unit->id }})">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>

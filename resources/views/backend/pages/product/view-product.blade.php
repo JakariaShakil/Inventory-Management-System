@@ -30,8 +30,9 @@
                     <thead>
                       <tr>
                         <th>SL.</th>
-                        <th>Product Image</th>
                         <th>Product Name</th>
+                        <th>Product Image</th>
+                        
                         <th>Product Code</th>
                        
                         <th>Supplier</th>
@@ -39,6 +40,9 @@
                         <th>Category</th>
                         <th>Brand</th>
                         <th>Quantity</th>
+                        <th>Buying Price</th>
+                        <th>Selling Price</th>
+                       
                         <th>Action</th>
                        
                       </tr>
@@ -47,6 +51,7 @@
                       @foreach ($allData as $key => $product )
                       <tr>
                         <td>{{ $key+1 }}</td>
+                        <td>{{ $product->product_name }}</td>
                         <td>
                           @if (!is_null($product->product_image))
                           <img src="{{ asset('Backend/img/product') }}/{{ $product->product_image }}" alt="" width="35">
@@ -54,16 +59,23 @@
                             No Thumbnail
                           @endif
                         </td>
-                        <td>{{ $product->product_name }}</td>
+                        
                         <td>{{ $product->product_code }}</td>
                        
                         <td>{{ $product->supplier->name }}</td>
                         <td>{{ $product->unit->name }}</td>
                         <td>{{ $product->category->name }}</td>
                         <td>{{ $product->brand->name }}</td>
-                        <td>{{ $product->quantity }}</td>                       
-                        <td>
-                          <a href="{{ route('products.edit',$product->id) }}" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit"></i></a>
+                        <td>{{ $product->quantity }}</td>  
+                        
+
+                        <td>{{ $product->unit_buying_price }}</td>
+                        <td>{{ $product->unit_selling_price}}</td>
+                                           
+                                             
+                                             
+                        <td class="d-flex">
+                          <a href="{{ route('products.edit',$product->id) }}" class="btn btn-sm btn-info mr-2" title="Edit"><i class="fa fa-edit"></i></a>
 
                           <button class="btn btn-danger btn-sm" type="button" onclick="deleteItem({{ $product->id }})">
                             <i class="fa fa-trash" aria-hidden="true"></i>
@@ -73,6 +85,8 @@
                           @csrf
                           @method('DELETE')
                       </form>
+                      <a href="{{ route('products.show.product',$product->id) }}" class="btn btn-sm btn-success ml-2" title="Edit"><i class="fa fa-eye"></i></a>
+
                         </td>   
                       </tr>
                       @endforeach

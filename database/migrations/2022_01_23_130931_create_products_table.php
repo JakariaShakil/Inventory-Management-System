@@ -28,6 +28,8 @@ class CreateProductsTable extends Migration
             $table->text('barcode')->nullable();
             $table->string('product_image')->nullable();        
             $table->double('quantity')->default(0);
+            $table->double('unit_buying_price');
+            $table->double('unit_selling_price');
             $table->tinyInteger('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

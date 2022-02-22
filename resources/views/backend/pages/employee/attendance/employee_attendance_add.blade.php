@@ -1,17 +1,7 @@
 @extends('backend.layout.template')
 
 @section('body')
-{{-- @if(session()->has('success'))
 
-<script type="text/javascript">
-
- $(function(){
-   $.notify("{{ session()->get('success') }}",{globalPosition:'top right',className:'success'});
- });
-
-</script>
-
-@endif --}}
 
 <div class="br-pagetitle">
     <i class="icon ion-ios-home-outline"></i>
@@ -28,10 +18,10 @@
               <div class="hidden-xs-down">
                 <h2 class="text-secondary">Add Employee Attendance</h2>
               </div>
-              {{-- <div class="tx-24 hidden-xss-down">
-                <a href="{{ route('employees.salary.view') }}" class="btn btn-info btn-sm float-right text-white"><i class="fa fa-list"></i>Employee List</a>
+              <div class="tx-24 hidden-xss-down">
+                <a href="{{ route('employees.view') }}" class="btn btn-info btn-sm float-right text-white"><i class="fa fa-list"></i>Employee List</a>
             
-              </div> --}}
+              </div>
             </div><!-- card-header -->
             
             <form method="post" action="{{ route('store.employee.attendance') }}">
@@ -119,16 +109,5 @@
     </div>
 
   </div>
-  <script type="text/javascript">
-    $(function () {
-      $('#form').parsley().on('field:validated', function() {
-        var ok = $('.parsley-error').length === 0;
-        $('.bs-callout-info').toggleClass('hidden', !ok);
-        $('.bs-callout-warning').toggleClass('hidden', ok);
-      })
-      .on('form:submit', function() {
-        return false; // Don't submit form for this demo
-      });
-    });
-    </script>
+  
 @endsection

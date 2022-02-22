@@ -2,17 +2,7 @@
 
 @section('body')
 
-{{-- @if(session()->has('success'))
 
-<script type="text/javascript">
-
- $(function(){
-   $.notify("{{ session()->get('success') }}",{globalPosition:'top right',className:'success'});
- });
-
-</script>
-
-@endif --}}
 
 <div class="br-pagetitle">
     <i class="icon ion-ios-home-outline"></i>
@@ -35,7 +25,7 @@
               </div>
             </div><!-- card-header -->
            
-              <form action="{{ route('employees.store') }}" method="POST" id="form" data-parsley-validate="" enctype="multipart/form-data">
+              <form action="{{ route('employees.store') }}" method="POST"  enctype="multipart/form-data">
                 @csrf
                 <div class="br-section-wrapper">
                   <div class="form-layout form-layout-1">
@@ -46,12 +36,17 @@
                       <div class="col-lg-4">
                         <div class="form-group mg-b-10-force">
                           <label class="form-control-label" for="role">Role<span class="tx-danger">*</span></label>
-                          <select class="form-control" name="role" required="" >
+                          <select class="form-control  @error('role') is-invalid @enderror" name="role" >
                             <option label="Select Role"></option>
                             <option value="Manager">Manager</option>
                             <option value="Cashier">Cashier</option>
                             <option value="Salesperson">Salesperson</option>
                           </select>
+                          @error('name')
+                          <span class="invalid-feedback " role="alert">
+                              <strong > {{ $message }}</strong>
+                          </span>        
+                          @enderror 
                          
                         </div>
                       </div>
@@ -59,15 +54,19 @@
                       <div class="col-lg-4">
                         <div class="form-group">
                           <label class="form-control-label">Image<span class="tx-danger">*</span></label>
-                          <input type="file" name="image" class="form-control-file">
-                         
+                          <input type="file" name="image" class="form-control-file @error('image') is-invalid @enderror">
+                          @error('image')
+                          <span class="invalid-feedback " role="alert">
+                              <strong > {{ $message }}</strong>
+                          </span>        
+                          @enderror 
                         </div>
                       </div>
 
                       <div class="col-lg-4">
                         <div class="form-group">
                           <label class="form-control-label">Name<span class="tx-danger">*</span></label>
-                          <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" value="{{ old('name') }}" placeholder="Enter Name" required=""  >
+                          <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" value="{{ old('name') }}" placeholder="Enter Name"  >
                           @error('name')
                           <span class="invalid-feedback " role="alert">
                               <strong > {{ $message }}</strong>
@@ -79,7 +78,7 @@
                       <div class="col-lg-4">
                         <div class="form-group">
                           <label class="form-control-label">Email<span class="tx-danger">*</span></label>
-                          <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" placeholder="Enter email address" data-parsley-type="email" data-parsley-trigger="keyup" required="" >
+                          <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" placeholder="Enter email address" >
                           @error('email')
                           <span class="invalid-feedback " role="alert">
                               <strong > {{ $message }}</strong>
@@ -90,7 +89,7 @@
                       <div class="col-lg-4">
                         <div class="form-group">
                           <label class="form-control-label">Phone<span class="tx-danger">*</span></label>
-                          <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" value="{{ old('phone') }}" required="" placeholder="Enter phone number" >
+                          <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" value="{{ old('phone') }}" placeholder="Enter phone number" >
                           @error('phone')
                           <span class="invalid-feedback " role="alert">
                               <strong > {{ $message }}</strong>
@@ -102,7 +101,7 @@
                       <div class="col-lg-4">
                         <div class="form-group">
                           <label class="form-control-label">Address<span class="tx-danger">*</span></label>
-                          <input class="form-control @error('address') is-invalid @enderror" type="text" name="address" value="{{ old('address') }}" required="" placeholder="Enter address" >
+                          <input class="form-control @error('address') is-invalid @enderror" type="text" name="address" value="{{ old('address') }}" placeholder="Enter address" >
                           @error('address')
                           <span class="invalid-feedback " role="alert">
                               <strong > {{ $message }}</strong>
@@ -114,11 +113,16 @@
                       <div class="col-lg-4">
                         <div class="form-group mg-b-10-force">
                           <label class="form-control-label" for="gender">Gender<span class="tx-danger">*</span></label>
-                          <select class="form-control" name="gender" required="" >
+                          <select class="form-control  @error('gender') is-invalid @enderror" name="gender" >
                             <option label="Select Gender"></option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>      
                           </select>
+                          @error('gender')
+                          <span class="invalid-feedback " role="alert">
+                              <strong > {{ $message }}</strong>
+                          </span>        
+                          @enderror
                          
                         </div>
                       </div>
@@ -127,7 +131,7 @@
                         <div class="form-group">
                           <label class="form-control-label">Join Date<span class="tx-danger">*</span></label>
                           <input class="form-control @error('join_date') is-invalid @enderror" type="date" name="join_date" value="{{ old('join
-                          -date') }}" required="" placeholder="dd-mm-yyyy" >
+                          -date') }}" placeholder="dd-mm-yyyy" >
                           @error('join_date')
                           <span class="invalid-feedback " role="alert">
                               <strong > {{ $message }}</strong>
@@ -138,7 +142,7 @@
                       <div class="col-lg-4">
                         <div class="form-group">
                           <label class="form-control-label">Salary<span class="tx-danger">*</span></label>
-                          <input class="form-control @error('salary') is-invalid @enderror" type="text" name="salary" value="{{ old('salary') }}" required="" placeholder="Enter salary" >
+                          <input class="form-control @error('salary') is-invalid @enderror" type="text" name="salary" value="{{ old('salary') }}" placeholder="Enter salary" >
                           @error('salary')
                           <span class="invalid-feedback " role="alert">
                               <strong > {{ $message }}</strong>
@@ -164,16 +168,5 @@
     </div>
 
   </div>
-  <script type="text/javascript">
-    $(function () {
-      $('#form').parsley().on('field:validated', function() {
-        var ok = $('.parsley-error').length === 0;
-        $('.bs-callout-info').toggleClass('hidden', !ok);
-        $('.bs-callout-warning').toggleClass('hidden', ok);
-      })
-      .on('form:submit', function() {
-        return false; // Don't submit form for this demo
-      });
-    });
-    </script>
+
 @endsection

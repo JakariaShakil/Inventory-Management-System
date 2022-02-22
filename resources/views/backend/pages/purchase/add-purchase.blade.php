@@ -45,7 +45,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                               <label class="form-control-label">Date<span class="tx-danger">*</span></label>
-                              <input class="form-control @error('date') is-invalid @enderror" type="date" name="date" id="date" value="{{ old('date') }}" required="" placeholder="dd-mm-yyyy" >
+                              <input class="form-control @error('date') is-invalid @enderror" type="date" name="date" id="date" value="{{ old('date') }}"  placeholder="dd-mm-yyyy" >
                               @error('date')
                               <span class="invalid-feedback " role="alert">
                                   <strong > {{ $message }}</strong>
@@ -56,7 +56,7 @@
                       <div class="col-lg-4">
                         <div class="form-group">
                           <label class="form-control-label">Purchase No<span class="tx-danger">*</span></label>
-                          <input class="form-control" type="text" name="purchase_no" id="purchase_no" value="{{ old('purchase_no') }}"  required=""  >
+                          <input class="form-control  @error('purchase_no') is-invalid @enderror" type="text" name="purchase_no" id="purchase_no" value="{{ old('purchase_no') }}"    >
 
                           @error('purchase_no')
                           <span class="invalid-feedback " role="alert">
@@ -69,13 +69,18 @@
                       <div class="col-lg-4">
                         <div class="form-group mg-b-10-force">
                           <label class="form-control-label" for="Type">Supplier Name<span class="tx-danger">*</span></label>
-                          <select class="form-control select2" name="supplier_id" id="supplier_id" required="" >
+                          <select class="form-control select_class  @error('supplier_id') is-invalid @enderror" name="supplier_id" id="supplier_id"  >
                             <option label="Select Supplier" value="" disabled selected></option>
                             @foreach($suppliers as $supplier)
                             <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                              @endforeach
                             
                           </select>
+                          @error('supplier_id')
+                          <span class="invalid-feedback " role="alert">
+                              <strong > {{ $message }}</strong>
+                          </span>        
+                          @enderror 
                          
                         </div>
                       </div>
@@ -83,18 +88,28 @@
                       <div class="col-lg-3">
                         <div class="form-group mg-b-10-force">
                           <label class="form-control-label" for="Type">Category Name<span class="tx-danger">*</span></label>
-                          <select class="form-control select2" name="category_id" id="category_id" required="" >
+                          <select class="form-control select_class @error('category_id') is-invalid @enderror " name="category_id" id="category_id"  >
                             <option label="Select Category" value="" disabled selected></option>       
                           </select>
+                          @error('category_id')
+                          <span class="invalid-feedback " role="alert">
+                              <strong > {{ $message }}</strong>
+                          </span>        
+                          @enderror 
                         </div>
                       </div>
                       
                       <div class="col-lg-3">
                         <div class="form-group mg-b-10-force">
                           <label class="form-control-label" for="Type">Brand Name<span class="tx-danger">*</span></label>
-                          <select class="form-control select2" name="brand_id" id="brand_id" required="" >
+                          <select class="form-control select_class @error('brand_id') is-invalid @enderror" name="brand_id" id="brand_id"  >
                             <option label="Select Brand" value="" disabled selected></option>       
                           </select>
+                          @error('brand_id')
+                          <span class="invalid-feedback " role="alert">
+                              <strong > {{ $message }}</strong>
+                          </span>        
+                          @enderror 
                         </div>
                       </div>
 
@@ -102,9 +117,14 @@
                       <div class="col-lg-4">
                         <div class="form-group mg-b-10-force">
                           <label class="form-control-label" for="Type">Product Name<span class="tx-danger">*</span></label>
-                          <select class="form-control select2" name="product_id" id="product_id" required="" >
+                          <select class="form-control select_class @error('product_id') is-invalid @enderror" name="product_id" id="product_id"  >
                             <option label="Select Product" value="" disabled selected></option>       
                           </select>
+                          @error('product_id')
+                          <span class="invalid-feedback " role="alert">
+                              <strong > {{ $message }}</strong>
+                          </span>        
+                          @enderror 
                         </div>
                       </div>
 
@@ -113,7 +133,7 @@
                       </div>
 
                       <div class="card-body">
-                        <form method="post" action="{{ route('purchase.store') }}" id="myForm">
+                        <form method="post" action="{{ route('purchase.store') }}"  id="myForm">
                           @csrf
                           <table class="table-sm table table-bordered" width="100%">
                             <thead>
@@ -122,6 +142,7 @@
                                 <th>Product Name</th>
                                 <th width= "7%">Pcs/kg</th>
                                 <th width = "10%">Unit Price</th>
+                                <th width = "10%">Selling Price</th>
                                 <th>Description</th>
                                 <th width="10%">Total Price</th>
                                 <th>Action</th>
@@ -132,9 +153,9 @@
                             </tbody>
                             <tbody>
                               <tr>
-                                <td colspan="5"></td>
+                                <td colspan="6"></td>
                                 <td>
-                                  <input type="text" name="estimated_ammount" value="0" id="estimated_ammount" class="form-control form-control-sm text-right estimated_amount" readonly style="background-color: #D8FDBA">
+                                  <input type="text" name="estimated_ammount" value="0" id="estimated_ammount"  class="form-control form-control-sm text-right estimated_amount " required readonly style="background-color: #D8FDBA">
                                 </td>
                                 <td>  
                                 </td>
@@ -199,6 +220,10 @@
           <input type="number"  class="form-control form-control-sm text-right unit_price" name="unit_price[]" value="">
       
       </td>
+      <td>
+          <input type="number"  class="form-control form-control-sm text-right unit_selling_price" name="unit_selling_price[]" value="">
+      
+      </td>
 
       <td>
           <input type="text" name="description[]" class="form-control form-control-sm">
@@ -232,6 +257,32 @@
       var product_id= $('#product_id').val();
       //var product_name= $('#product_id').val().find('option:selected').text();
       var product_name = $( "#product_id option:selected" ).text();
+
+        // validation
+        if(date==null || date == ''){
+          $.notify("Date is required", {globalPosition: 'top right',className: 'error'});
+          return false;
+        }
+        if(purchase_no == null ||purchase_no==''){
+          $.notify("Purchase no is required", {globalPosition: 'top right',className: 'error'});
+          return false;
+        }
+        if(supplier_id==null || supplier_id==''){
+          $.notify("Supplier is required", {globalPosition: 'top right',className: 'error'});
+          return false;
+        }
+        if(category_id == null || category_id==''){
+        $.notify("Category is required", {globalPosition: 'top right',className: 'error'});
+        return false;
+        }
+        if(brand_id == null || brand_id==''){
+        $.notify("Brand is required", {globalPosition: 'top right',className: 'error'});
+        return false;
+        }
+        if(product_id == null || product_id==''){
+          $.notify("Product is required", {globalPosition: 'top right',className: 'error'});
+          return false;
+        }
  
       
       var source = $("#document-template").html();
@@ -377,6 +428,13 @@ $(function(){
           });
         });
         </script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.select_class').select2();
+});
+</script>
 @endpush
 
 

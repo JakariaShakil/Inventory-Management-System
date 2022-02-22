@@ -24,7 +24,7 @@
               </div>
             </div><!-- card-header -->
            
-            <form action="{{ route('customers.update', $allCustomerData->id) }}" method="POST" id="form" data-parsley-validate="">
+            <form action="{{ route('customers.update', $allCustomerData->id) }}" method="POST" >
               @csrf
               <div class="br-section-wrapper">
                 <div class="form-layout form-layout-1">
@@ -35,7 +35,7 @@
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label">Name<span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="name" value="{{ $allCustomerData->name }}"  required="" data-parsley-trigger="keyup" data-parsley-pattern="\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+" >
+                        <input class="form-control" type="text" name="name" value="{{ $allCustomerData->name }}"  >
           
                         @error('name')
                         <span class="invalid-feedback " role="alert">
@@ -50,7 +50,7 @@
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label">Mobile<span class="tx-danger">*</span></label>
-                        <input type="text" name="mobile" class="form-control"  value="{{ $allCustomerData->mobile }}" required="" > 
+                        <input type="text" name="mobile" class="form-control"  value="{{ $allCustomerData->mobile }}" > 
                         @error('mobile')
                         <span class="invalid-feedback " role="alert">
                             <strong > {{ $message }}</strong>
@@ -63,7 +63,7 @@
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label">E-mail<span class="tx-danger">*</span></label>
-                        <input type="email" name="email" class="form-control" value="{{ $allCustomerData->email }}" data-parsley-type="email" data-parsley-trigger="keyup" > 
+                        <input type="email" name="email" class="form-control" value="{{ $allCustomerData->email }}" > 
           
                         @error('email')
                         <span class="invalid-feedback " role="alert">
@@ -76,7 +76,7 @@
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label">Address<span class="tx-danger">*</span></label>
-                        <input type="text" name="address" class="form-control"  value="{{ $allCustomerData->address }}" required="" > 
+                        <input type="text" name="address" class="form-control"  value="{{ $allCustomerData->address }}" > 
                         @error('address')
                         <span class="invalid-feedback " role="alert">
                             <strong > {{ $message }}</strong>
@@ -104,18 +104,7 @@
 
   </div>
 
-  <script type="text/javascript">
-    $(function () {
-      $('#form').parsley().on('field:validated', function() {
-        var ok = $('.parsley-error').length === 0;
-        $('.bs-callout-info').toggleClass('hidden', !ok);
-        $('.bs-callout-warning').toggleClass('hidden', ok);
-      })
-      .on('form:submit', function() {
-        return false; 
-      });
-    });
-    </script>
+
   
 @endsection
 

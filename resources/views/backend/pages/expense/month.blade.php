@@ -70,7 +70,7 @@
                                         <td>
                                             <a href="{{ route('expenses.edit', $expense->id) }}" class="btn
                                                 btn-info">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                <i class="fa fa-edit" aria-hidden="true"></i>
                                             </a>
                                             <button class="btn btn-danger" type="button" onclick="deleteItem({{ $expense->id }})">
                                                 <i class="fa fa-trash" aria-hidden="true"></i>

@@ -29,16 +29,18 @@
                     <thead>
                       <tr>
                         <th>SL.</th>
+                        <th>Product Name</th>
                         <th>Purchase no</th>
                         <th>Date</th>
                         <th>Supplier Name</th>
                         <th>Category</th>
-                        <th>Product Name</th>
+                        
                         <th>Product Code</th>
                         <th>Description</th>
                         <th>Quantity</th>
-                        <th>Unit Price</th>   
-                        <th>Buying Price</th>   
+                        <th>Unit Price</th>     
+                        <th>Total Buying Price</th>   
+                        <th>Unit Selling Price</th> 
                         <th>Status</th>   
                         <th>Action</th>
                        
@@ -48,11 +50,12 @@
                       @foreach ($allData as $key => $purchase )
                       <tr>
                         <td>{{ $key+1 }}</td>
+                        <td>{{ $purchase->product->product_name }}</td>
                         <td>{{ $purchase->purchase_no }}</td>
                         <td>{{ $purchase->date }}</td>
                         <td>{{ $purchase->supplier->name }}</td>
                         <td>{{ $purchase->category->name }}</td>
-                        <td>{{ $purchase->product->product_name }}</td>
+                        
                         <td>{{ $purchase->product->product_code }}</td>
                         <td>{{ $purchase->description }}</td>
                         <td>
@@ -61,6 +64,7 @@
                         </td>
                         <td>{{ $purchase->unit_price }}</td>
                         <td>{{ $purchase->buying_price }}</td>
+                        <td>{{ $purchase->unit_selling_price }}</td>
                         <td>
                             @if($purchase->status == 0)
                             <span class="badge badge-warning">Pending</span>

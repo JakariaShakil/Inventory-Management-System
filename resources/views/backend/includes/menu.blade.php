@@ -2,7 +2,7 @@
 $prefix = Request::route()->getPrefix();
 $route = Route::current()->getName();
 @endphp
-<div class="br-logo"><a href=""><span>[</span>bracket <i>plus</i><span>]</span></a></div>
+<div class="br-logo"><a href="{{ route('home') }}"><span>[</span>Easy <i>Inventory</i><span>]</span></a></div>
 <div class="br-sideleft sideleft-scrollbar">
     <label class="sidebar-label pd-x-10 mg-t-20 op-3">Navigation</label>
     <ul class="br-sideleft-menu">
@@ -13,20 +13,97 @@ $route = Route::current()->getName();
             </a><!-- br-menu-link -->
         </li><!-- br-menu-item -->
         <label class="sidebar-label pd-x-10 mg-t-25 mg-b-20 tx-info">Inventory Functionality</label>
-        
 
-        <li class="br-menu-item ">
-            <a href="#" class="br-menu-link with-sub treeview {{ ($prefix == '/users')?'show-sub':'' }}">
-                <i class="fas fa-user"></i>
-                <span class="menu-item-label">Manage User</span>
+        <li class="br-menu-item">
+            <a href="#" class="br-menu-link with-sub {{ ($prefix == '/products')?'show-sub':'' }}">
+                <i class="fab fa-product-hunt"></i>
+                <span class="menu-item-label">Manage Products</span>
             </a><!-- br-menu-link -->
-            <ul class="br-menu-sub" >
-                <li class="sub-item " ><a href="{{ route('users.view') }}" class="sub-link {{ Route::currentRouteNamed('users.view') ? 'active' : '' }}">All User</a></li>
-                <li class="sub-item" ><a href="{{ route('users.add') }}" class="sub-link {{ Route::currentRouteNamed('users.add') ? 'active' : '' }}">Add User</a></li>
-            </ul>
+            <ul class="br-menu-sub">
+                <li class="sub-item"><a href="{{ route('products.view') }}" class="sub-link {{ Route::currentRouteNamed('products.view') ? 'active' : '' }}">All Products</a></li>
+                <li class="sub-item"><a href="{{ route('products.add') }}" class="sub-link {{ Route::currentRouteNamed('products.add') ? 'active' : '' }}">Add Products</a></li>
+                <li class="sub-item"><a href="{{ route('products.barcode') }}" class="sub-link {{ Route::currentRouteNamed('products.barcode') ? 'active' : '' }}"> Products Barcode</a></li>
+                
 
-           
+            </ul>
         </li>
+
+        <li class="br-menu-item">
+            <a href="#" class="br-menu-link with-sub {{ ($prefix == '/purchase')?'show-sub':'' }}">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="menu-item-label">Manage Purchase</span>
+            </a><!-- br-menu-link -->
+            <ul class="br-menu-sub">
+                <li class="sub-item"><a href="{{ route('purchase.view') }}" class="sub-link {{ Route::currentRouteNamed('purchase.view') ? 'active' : '' }}">View Purchase</a></li>
+                <li class="sub-item"><a href="{{ route('purchase.add') }}" class="sub-link {{ Route::currentRouteNamed('purchase.add') ? 'active' : '' }}">Add Purchase</a></li>
+                {{-- <li class="sub-item"><a href="{{ route('import.product') }}" class="sub-link {{ Route::currentRouteNamed('import.product') ? 'active' : '' }}">Import Products</a></li> --}}
+                <li class="sub-item"><a href="{{ route('purchase.pending.list') }}" class="sub-link {{ Route::currentRouteNamed('purchase.pending.list') ? 'active' : '' }}">Approval Purchase</a></li>
+                <li class="sub-item"><a href="{{ route('purchase.report') }}" class="sub-link {{ Route::currentRouteNamed('purchase.report') ? 'active' : '' }}">Daily Purchase Report</a></li>
+
+
+            </ul>
+        </li>
+
+        <li class="br-menu-item">
+            <a href="#" class="br-menu-link with-sub {{ ($prefix == '/invoice')?'show-sub':'' }}">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span class="menu-item-label">Manage invoice</span>
+            </a><!-- br-menu-link -->
+            <ul class="br-menu-sub">
+                <li class="sub-item"><a href="{{ route('invoice.view') }}" class="sub-link {{ Route::currentRouteNamed('invoice.view') ? 'active' : '' }}">View Invoice</a></li>
+                <li class="sub-item"><a href="{{ route('invoice.add') }}" class="sub-link {{ Route::currentRouteNamed('invoice.add') ? 'active' : '' }}">Add Invoice</a></li>
+                {{-- <li class="sub-item"><a href="{{ route('import.product') }}" class="sub-link {{ Route::currentRouteNamed('import.product') ? 'active' : '' }}">Import Products</a></li> --}}
+                 <li class="sub-item"><a href="{{ route('invoice.pending.list') }}" class="sub-link {{ Route::currentRouteNamed('invoice.pending.list') ? 'active' : '' }}">Approval Invoice</a></li>
+                <li class="sub-item"><a href="{{ route('invoice.print.list') }}" class="sub-link {{ Route::currentRouteNamed('invoice.print.list') ? 'active' : '' }}"> Print Invoice</a></li> 
+                <li class="sub-item"><a href="{{ route('invoice.daily.report') }}" class="sub-link {{ Route::currentRouteNamed('invoice.daily.report') ? 'active' : '' }}"> Daily Invoice Report</a></li> 
+
+
+            </ul>
+        </li>
+
+        <li class="br-menu-item">
+            <a href="#" class="br-menu-link with-sub {{ ($prefix == '/stock')?'show-sub':'' }}">
+                <i class="fab fa-stack-overflow"></i>
+                <span class="menu-item-label">Manage Stock</span>
+            </a><!-- br-menu-link -->
+            <ul class="br-menu-sub">
+                <li class="sub-item"><a href="{{ route('stock.report') }}" class="sub-link {{ Route::currentRouteNamed('stock.report') ? 'active' : '' }}">Stock Report</a></li>
+                <li class="sub-item"><a href="{{ route('supplier.product.report') }}" class="sub-link {{ Route::currentRouteNamed('supplier.product.report') ? 'active' : '' }}">Supplier/Product Stock</a></li>
+
+            </ul>
+        </li>
+
+        @if (Auth::user()->user_type =='Admin')
+        <li class="br-menu-item">
+            <a href="#" class="br-menu-link with-sub {{ ($prefix == '/employees')?'show-sub':'' }}">
+                <i class="fa-solid fa-user-tie"></i>
+                <span class="menu-item-label">Manage HRM</span>
+            </a><!-- br-menu-link -->
+            <ul class="br-menu-sub">
+                <li class="sub-item"><a href="{{ route('employees.view') }}" class="sub-link {{ Route::currentRouteNamed('employees.view') ? 'active' : '' }}">All Employee</a></li>
+                <li class="sub-item"><a href="{{ route('employees.add') }}" class="sub-link {{ Route::currentRouteNamed('employees.add') ? 'active' : '' }}">Add Employee</a></li>
+                <li class="sub-item"><a href="{{ route('employees.salary.view') }}" class="sub-link {{ Route::currentRouteNamed('employees.salary.view') ? 'active' : '' }}">Employee Salary</a></li>
+                <li class="sub-item"><a href="{{ route('employee.attendance.view') }}" class="sub-link {{ Route::currentRouteNamed('employee.attendance.view') ? 'active' : '' }}">Employee Attendance</a></li>
+            </ul>
+        </li>
+        @endif
+        
+@if (Auth::user()->user_type =='Admin')
+
+<li class="br-menu-item ">
+    <a href="#" class="br-menu-link with-sub treeview {{ ($prefix == '/users')?'show-sub':'' }}">
+        <i class="fas fa-user"></i>
+        <span class="menu-item-label">Manage User</span>
+    </a><!-- br-menu-link -->
+    <ul class="br-menu-sub" >
+        <li class="sub-item " ><a href="{{ route('users.view') }}" class="sub-link {{ Route::currentRouteNamed('users.view') ? 'active' : '' }}">All User</a></li>
+        <li class="sub-item" ><a href="{{ route('users.add') }}" class="sub-link {{ Route::currentRouteNamed('users.add') ? 'active' : '' }}">Add User</a></li>
+    </ul>
+
+   
+</li> 
+@endif
+        
 
         <li class="br-menu-item">
             <a href="#" class="br-menu-link with-sub treeview {{ ($prefix == '/suppliers')?'show-sub':'' }}">
@@ -50,6 +127,7 @@ $route = Route::current()->getName();
             <ul class="br-menu-sub">
                 <li class="sub-item"><a href="{{ route('customers.view') }}" class="sub-link {{ Route::currentRouteNamed('customers.view') ? 'active' : '' }}">All Customer</a></li>
                 <li class="sub-item"><a href="{{ route('customers.add') }}" class="sub-link {{ Route::currentRouteNamed('customers.add') ? 'active' : '' }}">Add Customer</a></li>
+                <li class="sub-item"><a href="{{ route('customers.credit') }}" class="sub-link {{ Route::currentRouteNamed('customers.credit') ? 'active' : '' }}">Credit Customer</a></li>
 
             </ul>
         </li>
@@ -79,7 +157,7 @@ $route = Route::current()->getName();
         </li>
         <li class="br-menu-item">
             <a href="#" class="br-menu-link with-sub {{ ($prefix == '/brands')?'show-sub':'' }}">
-                <i class="fas fa-list"></i>
+                <i class="fa-thin fa-b"></i>
                 <span class="menu-item-label">Manage Brands</span>
             </a><!-- br-menu-link -->
             <ul class="br-menu-sub">
@@ -89,38 +167,15 @@ $route = Route::current()->getName();
 
             </ul>
         </li>
-
+       
  
-        <li class="br-menu-item">
-            <a href="#" class="br-menu-link with-sub {{ ($prefix == '/employees')?'show-sub':'' }}">
-                <i class="fa fa-balance-scale"></i>
-                <span class="menu-item-label">Manage HRM</span>
-            </a><!-- br-menu-link -->
-            <ul class="br-menu-sub">
-                <li class="sub-item"><a href="{{ route('employees.view') }}" class="sub-link {{ Route::currentRouteNamed('employees.view') ? 'active' : '' }}">All Employee</a></li>
-                <li class="sub-item"><a href="{{ route('employees.add') }}" class="sub-link {{ Route::currentRouteNamed('employees.add') ? 'active' : '' }}">Add Employee</a></li>
-                <li class="sub-item"><a href="{{ route('employees.salary.view') }}" class="sub-link {{ Route::currentRouteNamed('employees.salary.view') ? 'active' : '' }}">Employee Salary</a></li>
-                <li><a href="{{ route('employee.attendance.view') }}" class="sub-link {{ Route::currentRouteNamed('employee.attendence.view') ? 'active' : '' }}">Employee Attendance</a></li>
-            </ul>
-        </li>
+       
 
-        <li class="br-menu-item">
-            <a href="#" class="br-menu-link with-sub {{ ($prefix == '/products')?'show-sub':'' }}">
-                <i class="fas fa-list"></i>
-                <span class="menu-item-label">Manage Products</span>
-            </a><!-- br-menu-link -->
-            <ul class="br-menu-sub">
-                <li class="sub-item"><a href="{{ route('products.view') }}" class="sub-link {{ Route::currentRouteNamed('products.view') ? 'active' : '' }}">All Products</a></li>
-                <li class="sub-item"><a href="{{ route('products.add') }}" class="sub-link {{ Route::currentRouteNamed('products.add') ? 'active' : '' }}">Add Products</a></li>
-                <li class="sub-item"><a href="{{ route('products.barcode') }}" class="sub-link {{ Route::currentRouteNamed('products.barcode') ? 'active' : '' }}"> Products Barcode</a></li>
-                
-
-            </ul>
-        </li>
+      
         
         <li class="br-menu-item">
             <a href="#" class="br-menu-link with-sub {{ ($prefix == '/expenses')?'show-sub':'' }}">
-                <i class="fa fa-balance-scale"></i>
+                <i class="fa-regular fa-dollar-sign"></i>
                 <span class="menu-item-label">Manage Expense</span>
             </a><!-- br-menu-link -->
             <ul class="br-menu-sub">
@@ -133,32 +188,9 @@ $route = Route::current()->getName();
             </ul>
         </li>
 
-        <li class="br-menu-item">
-            <a href="#" class="br-menu-link with-sub {{ ($prefix == '/purchase')?'show-sub':'' }}">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="menu-item-label">Manage Purchase</span>
-            </a><!-- br-menu-link -->
-            <ul class="br-menu-sub">
-                <li class="sub-item"><a href="{{ route('purchase.view') }}" class="sub-link {{ Route::currentRouteNamed('purchase.view') ? 'active' : '' }}">View Purchase</a></li>
-                <li class="sub-item"><a href="{{ route('purchase.add') }}" class="sub-link {{ Route::currentRouteNamed('purchase.add') ? 'active' : '' }}">Add Purchase</a></li>
-                {{-- <li class="sub-item"><a href="{{ route('import.product') }}" class="sub-link {{ Route::currentRouteNamed('import.product') ? 'active' : '' }}">Import Products</a></li> --}}
-                <li class="sub-item"><a href="{{ route('purchase.pending.list') }}" class="sub-link {{ Route::currentRouteNamed('purchase.pending.list') ? 'active' : '' }}">Approval Purchase</a></li>
-                <li class="sub-item"><a href="{{ route('purchase.report') }}" class="sub-link {{ Route::currentRouteNamed('purchase.report') ? 'active' : '' }}">Daily Purchase Report</a></li>
+    
 
-
-            </ul>
-        </li>
-        <li class="br-menu-item">
-            <a href="#" class="br-menu-link with-sub {{ ($prefix == '/stock')?'show-sub':'' }}">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="menu-item-label">Manage Stock</span>
-            </a><!-- br-menu-link -->
-            <ul class="br-menu-sub">
-                <li class="sub-item"><a href="{{ route('stock.report') }}" class="sub-link {{ Route::currentRouteNamed('stock.report') ? 'active' : '' }}">Stock Report</a></li>
-                <li class="sub-item"><a href="{{ route('supplier.product.report') }}" class="sub-link {{ Route::currentRouteNamed('supplier.product.report') ? 'active' : '' }}">Supplier/Product Stock</a></li>
-
-            </ul>
-        </li>
+      
 
 
 

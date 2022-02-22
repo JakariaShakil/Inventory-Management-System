@@ -17,6 +17,10 @@
                 <div class="hidden-xs-down">
                     <h2 class="text-secondary">Products Barcode</h2>
                 </div>
+                <div class="tx-24 hidden-xss-down">
+                    <a href="{{ route('product.barcode.report.pdf') }}" target="_blank" class="btn btn-info btn-sm float-right text-white"><i class="fa fa-print"></i>Print Barcode</a>
+                
+                  </div>
                 
                 
             </div><!-- card-header -->
@@ -26,14 +30,15 @@
                     
                         <div class="row">
                             @foreach ($products_info as $product_info )
-                            <div class="col-lg-3 col-md-4 col-sm-12 mt-3 text-center">
+                            <div class="col-lg-4 col-md-4 col-sm-12 mt-3 text-center">
                                 <div class="card">
                                     <div class="card-body text-center">
-                                        @if (!is_null($product_info->barcode))
+                                        {{-- @if (!is_null($product_info->barcode))
                                         <img src="{{ asset('Backend/img/product/barcode/' .$product_info->barcode) }}" alt="" height="60px" width="200">
                                         @else
                                           No Thumbnail
-                                        @endif
+                                        @endif --}}
+                                        {!! $product_info->barcode !!}
                                         <h5 class="text-center text-dark mt-2">{{ $product_info->product_code }}</h5>
                                 
                                     </div>

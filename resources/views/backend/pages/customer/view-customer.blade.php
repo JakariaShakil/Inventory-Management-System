@@ -40,24 +40,15 @@
                       @foreach ($allData as $key => $customer )
                       <tr>
                         <td>{{ $key+1 }}</td>
-                        {{-- <td>
-                          @if (!is_null($supplier->image))
-                          <img src="{{ asset('Backend/img/supplier') }}/{{ $supplier->image }}" alt="" width="35">
-                          @else
-                            No Thumbnail
-                          @endif
-                        </td> --}}
+                       
                         <td>{{ $customer->name }}</td>
                         <td>{{ $customer->mobile }}</td>
                         <td>{{ $customer->email }}</td>
-                         {{-- <td>{{ $supplier->type }}</td> --}}
                         <td>{{ $customer->address }}</td>
-                        {{-- <td>{{ $supplier->city }}</td>
-                        <td>{{ $supplier->account_number }}</td> --}}
+                        
                         
                         <td>
-                          <a href="{{ route('customers.edit',$customer->id) }}" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit"></i></a>
-                          {{-- <a href="{{ route('customers.delete',$customer->id) }}" class="btn btn-sm btn-danger" title="Delete"><i class="fa fa-trash"></i></a> --}}
+                          <a href="{{ route('customers.edit',$customer->id) }}" class="btn btn-sm btn-info" title="Edit"><i class="fa fa-edit"></i></a>
                           <button class="btn btn-danger btn-sm" type="button" onclick="deleteItem({{ $customer->id }})">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>

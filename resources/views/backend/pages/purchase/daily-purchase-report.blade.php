@@ -16,7 +16,7 @@
                 <h2 class="text-secondary">Daily Purchase Report</h2>
               </div>
               <div class="tx-24 hidden-xss-down">
-                <a href="{{ route('employees.view') }}" class="btn btn-info btn-sm float-right text-white"><i class="fa fa-list"></i>Employee List</a>
+                <a href="{{ route('purchase.view') }}" class="btn btn-info btn-sm float-right text-white"><i class="fa fa-list"></i>Employee List</a>
             
               </div>
             </div><!-- card-header -->
@@ -48,7 +48,7 @@
                             </div>
             
                             <div class="col-lg-2">
-                              <input type="submit" name="submit" class="btn btn-primary mt-4" value="Search">
+                              <input type="submit" name="submit" class="btn btn-info mt-4" value="Search">
                             </div>
                      
               </div><!--End row -->

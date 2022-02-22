@@ -41,8 +41,8 @@
                         <td>{{ $category->name }}</td>
                         
                         <td>
-                          <a href="{{ route('categories.edit',$category->id) }}" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit"></i></a>
-                          {{-- <a href="{{ route('customers.delete',$customer->id) }}" class="btn btn-sm btn-danger" title="Delete"><i class="fa fa-trash"></i></a> --}}
+                          <a href="{{ route('categories.edit',$category->id) }}" class="btn btn-sm btn-info" title="Edit"><i class="fa fa-edit"></i></a>
+                         
                           <button class="btn btn-danger btn-sm" type="button" onclick="deleteItem({{ $category->id }})">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>

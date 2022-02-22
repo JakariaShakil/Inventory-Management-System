@@ -29,7 +29,9 @@ class ProductController extends Controller
      */
     public function view()
     {
-        $data['allData'] = Product::latest()->with('category', 'supplier','unit','brand')->get();
+        $data['allData'] = Product::latest()->with('category', 'supplier','unit','brand','purchase')->get();
+        // return $data['allData'];
+
         return view('backend.pages.product.view-product',$data);
     }
 
@@ -55,9 +57,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        
         $this->validate($request,[
                       
-            'product_name' => 'required',
+            'product_name' => 'required|unique:products,product_name',
             'product_code' => 'required|unique:products,product_code',
             'category_id' => 'required',
             'brand_id' => 'required',
@@ -68,11 +71,14 @@ class ProductController extends Controller
     ]);
 
     $data = new Product();
+
     $product_code = $request->product_code;
   
-    $generator = new Picqer\Barcode\BarcodeGeneratorJPG();
-    file_put_contents('Backend/img/product/barcode/' .$product_code. '.jpg', 
-    $generator->getBarcode($product_code, $generator::TYPE_CODE_128, 3, 50));
+    //$generator = new Picqer\Barcode\BarcodeGeneratorJPG();
+    $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+    //file_put_contents('Backend/img/product/barcode/' .$product_code. '.jpg', 
+    //$generator->getBarcode($product_code, $generator::TYPE_CODE_128, 3, 50));
+    $barcodes = $generator->getBarcode($product_code, $generator::TYPE_CODE_128, 3, 50);
 
     $data->product_name = $request->product_name;
     $data->product_code = $product_code;
@@ -91,7 +97,9 @@ class ProductController extends Controller
     $data->brand_id = $request->brand_id;
     $data->supplier_id = $request->supplier_id;
     $data->unit_id = $request->unit_id;
-    $data->barcode = $product_code. '.jpg';
+    //$data->created_by = Auth::user();
+    //$data->barcode = $product_code. '.jpg';
+    $data->barcode = $barcodes;
     $data->save();
 
 
@@ -110,9 +118,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showProduct($id)
     {
-        //
+        $product = Product::find($id);
+        
+        return view('backend.pages.product.show-product',compact('product'));
     }
 
     /**
@@ -142,6 +152,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $this->validate($request,[
                       
             'product_name' => 'required',
@@ -151,33 +162,28 @@ class ProductController extends Controller
             'brand_id' => 'required',
             'supplier_id' => 'required',
             'unit_id' => 'required',
-            'product_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'product_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
            
-    ]);
-    
-  
-
-   
-   
+     ]);
 
     $data = Product::find($id);
     $product_code = $request->product_code;
 
     if($request->product_code != '' && $request->product_code != $data->product_code ){
-        if($data->barcode != ''){
-            if(File::exists('Backend/img/product/barcode/' . $data->barcode)){
-                File::delete('Backend/img/product/barcode/' . $data->barcode);
+        // if($data->barcode != ''){
+        //     if(File::exists('Backend/img/product/barcode/' . $data->barcode)){
+        //         File::delete('Backend/img/product/barcode/' . $data->barcode);
 
-            }
-            // $barcode_path = public_path() .'Backend/img/product/barcode/' .$data->barcode;
-            // unlink($barcode_path);
+        //     }
             
-        }
+        // }
         
-        $generator = new Picqer\Barcode\BarcodeGeneratorJPG();
-        file_put_contents('Backend/img/product/barcode/' .$product_code. '.jpg', 
-  $generator->getBarcode($product_code, $generator::TYPE_CODE_128, 3, 50));
-        $data->barcode = $product_code. '.jpg'; 
+        $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+        //file_put_contents('Backend/img/product/barcode/' .$product_code. '.jpg', 
+  //$generator->getBarcode($product_code, $generator::TYPE_CODE_128, 3, 50));
+  $barcodes = $generator->getBarcode($product_code, $generator::TYPE_CODE_128, 3, 50);
+        //$data->barcode = $product_code. '.jpg'; 
+        $data->barcode =  $barcodes; 
     }
   
  
@@ -198,6 +204,7 @@ class ProductController extends Controller
 
     // $data->quantity = $request->quantity;
     $data->product_code = $product_code;
+    $data->product_name = $request->product_name;
     $data->category_id = $request->category_id;
        
     $data->brand_id = $request->brand_id;
@@ -227,10 +234,10 @@ class ProductController extends Controller
             if( File::exists('Backend/img/product/' .$deleteProduct ->product_image) ){
                 File::delete('Backend/img/product/' .$deleteProduct ->product_image);
             }
-            if( File::exists('Backend/img/product/barcode/' .$deleteProduct ->barcode) ){
-                File::delete('Backend/img/product/barcode/' .$deleteProduct ->barcode);
+            // if( File::exists('Backend/img/product/barcode/' .$deleteProduct ->barcode) ){
+            //     File::delete('Backend/img/product/barcode/' .$deleteProduct ->barcode);
                
-            }
+            // }
 
             $deleteProduct ->delete();
         }
@@ -240,34 +247,16 @@ class ProductController extends Controller
 
 
 
-    // public function ImportProduct()
-    // {
-    //     return view('backend.pages.product.import-product');
-
-
-    // }
-
-
-    // public function export() 
-    // {
-    //     return Excel::download(new ProductsExport, 'products.xlsx');
-    // }
-           
-    // public function import(Request $request) 
-    // {
-    //     $import=  Excel::import(new ProductsImport, $request->file('import_file'));
-        
-    //     if($import){
-    //     return redirect()->route('products.view')->with('info','Data Imported Successfully');
-    //      }
-    //     else{
-    //         return redirect()->back();
-    //     }
-        
-    // }
     public function getProductsBarcode(){
         $products_info = Product::select('barcode','product_code')->paginate(12);
         return view('backend.pages.product.barcode.index',compact('products_info'));
+    }
+
+    public function productBarcodeReportPdf(){
+        $products_info = Product::select('barcode','product_code')->orderBy('id','asc')->get();
+        return view('backend.pages.pdf.product-barcode-report-pdf', compact('products_info'));
+        
+     
     }
 
 

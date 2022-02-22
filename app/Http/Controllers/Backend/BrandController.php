@@ -28,6 +28,7 @@ class BrandController extends Controller
      */
     public function add()
     {
+        
         return view('backend.pages.brand.add-brand');
     }
 
@@ -92,7 +93,7 @@ class BrandController extends Controller
     {
         $this->validate($request,[
            
-            'name' => 'required|unique:brands,name',
+            'name' => 'required',
                 
 
     ]);

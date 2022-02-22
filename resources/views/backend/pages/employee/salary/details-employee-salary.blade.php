@@ -1,15 +1,7 @@
 @extends('backend.layout.template')
 
 @section('body')
-@if(session()->has('success'))
 
-<script type="text/javascript">
-
- $(function(){
-   $.notify("{{ session()->get('success') }}",{globalPosition:'top right',className:'success'});
- });
-
-</script>
 
 @endif
 

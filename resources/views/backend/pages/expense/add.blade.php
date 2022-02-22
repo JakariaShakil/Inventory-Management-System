@@ -1,17 +1,6 @@
 @extends('backend.layout.template')
 
 @section('body')
-{{-- @if(session()->has('success'))
-
-<script type="text/javascript">
-
- $(function(){
-   $.notify("{{ session()->get('success') }}",{globalPosition:'top right',className:'success'});
- });
-
-</script>
-
-@endif --}}
 
 <div class="br-pagetitle">
     <i class="icon ion-ios-home-outline"></i>
@@ -41,11 +30,21 @@
                       <div class="row mg-b-25">
                         <div class="form-group col-md-5">
                             <label>Expense Title</label>
-                            <input type="text" name="name" class="form-control" value="{{ old('name') }}" placeholder="Enter Expense Title">
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Enter Expense Title">
+                            @error('name')
+                            <span class="invalid-feedback " role="alert">
+                                <strong > {{ $message }}</strong>
+                            </span>        
+                            @enderror
                         </div>
                         <div class="form-group col-md-5">
                             <label>Expense Amount</label>
-                            <input type="number" name="amount" class="form-control" value="{{ old('amount') }}" placeholder="Enter Expense Amount">
+                            <input type="number" name="amount" class="form-control @error('amount') is-invalid @enderror" value="{{ old('amount') }}" placeholder="Enter Expense Amount">
+                            @error('amount')
+                            <span class="invalid-feedback " role="alert">
+                                <strong > {{ $message }}</strong>
+                            </span>        
+                            @enderror
                         </div>
                         <div class="col-md-2 form-group">
                             <button type="submit" class="btn btn-info" style="margin-top:30px">Add Expense</button>

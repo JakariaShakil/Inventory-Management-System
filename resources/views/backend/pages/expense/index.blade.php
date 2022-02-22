@@ -44,7 +44,7 @@
                                 <td>{{ $expense->created_at->format('d M Y h:i:s A') }}</td>
                         
                         <td>
-                          <a href="{{ route('expenses.edit',$expense->id) }}" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit"></i></a>
+                          <a href="{{ route('expenses.edit',$expense->id) }}" class="btn btn-sm btn-info" title="Edit"><i class="fa fa-edit"></i></a>
                          
                           <button class="btn btn-danger btn-sm" type="button" onclick="deleteItem({{ $expense->id }})">
                             <i class="fa fa-trash" aria-hidden="true"></i>

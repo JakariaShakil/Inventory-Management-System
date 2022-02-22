@@ -53,15 +53,18 @@ class PurchaseController extends Controller
   */
  public function store(Request $request)
  {
-//      $this->validate($request,[
+   
+     $this->validate($request,[
                    
-//          'date' => 'required',
-//          'purchase_no' => 'required',
-//          'supplier_id' => 'required',
-//          'category_id' => 'required',
-//          'product_id' => 'required',
+         'date' => 'required',
+         'purchase_no' => 'required',
+         'supplier_id' => 'required',
+         'category_id' => 'required',
+         'brand_id' => 'required',
+         'product_id' => 'required',
         
-//  ]);
+ ]);
+ 
    if ($request->category_id==null)
    {
      return redirect()->back()->with('error','Sorry! you do not select any item');
@@ -73,6 +76,7 @@ class PurchaseController extends Controller
 
       for( $i=0; $i<$count_category; $i++) {
       $purchase=new Purchase();
+      
       $purchase->date = date('Y-m-d',strtotime($request->date[$i]));
     //   $purchase->date = $request->date[$i];
       $purchase->purchase_no = $request->purchase_no[$i];
@@ -82,11 +86,20 @@ class PurchaseController extends Controller
       $purchase->product_id = $request->product_id[$i];
       $purchase->buying_quantity = $request->buying_quantity[$i];
       $purchase->unit_price = $request->unit_price[$i];
+      $purchase->unit_selling_price = $request->unit_selling_price[$i];
       $purchase->buying_price = $request->buying_price[$i];
       $purchase->description = $request->description[$i];
     //   $purchase->created_by = Auth::user()->id;
       $purchase->status = '0';
+
+      
+
       $purchase->save();
+
+      $product = Product::find($request->product_id[$i]);
+      $product->unit_selling_price = $request->unit_selling_price[$i];
+      $product->unit_buying_price = $request->unit_price[$i];
+      $product->update();
 
       }
     }
@@ -102,13 +115,7 @@ class PurchaseController extends Controller
   * @param  int  $id
   * @return \Illuminate\Http\Response
   */
-//  public function getCategory($id)
-//  {
-//     $allCategory = Product::with('category')->select('category_id')->where('supplier_id',$id)->get();
-    
-//     return response()->json( $allCategory);
-    
-//  }
+
 public function getCategory(Request $request){
     $supplier_id = $request->supplier_id;
     // dd($supplier_id);

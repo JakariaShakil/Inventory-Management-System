@@ -30,4 +30,14 @@ class Product extends Model
     {
         return $this->belongsTo(Unit::class);
     }
+    public function purchase()
+    {
+        return $this->hasOne(Purchase::class);
+    }
+
+    public function invoiceDetail() {
+        return $this->hasMany(InvoiceDetail::class);
+    }
+   
+   
 }

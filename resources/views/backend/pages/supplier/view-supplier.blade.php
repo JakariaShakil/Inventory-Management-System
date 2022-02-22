@@ -60,8 +60,8 @@
                         <td>{{ $supplier->city }}</td>
                         <td>{{ $supplier->account_number }}</td>
                         
-                        <td>
-                          <a href="{{ route('suppliers.edit',$supplier->id) }}" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit"></i></a>
+                        <td class="d-flex">
+                          <a href="{{ route('suppliers.edit',$supplier->id) }}" class="btn btn-sm btn-info mr-2" title="Edit"><i class="fa fa-edit"></i></a>
                           {{-- <a href="{{ route('suppliers.delete',$supplier->id) }}" class="btn btn-sm btn-danger" title="Delete"><i class="fa fa-trash"></i></a> --}}
                           <button class="btn btn-danger btn-sm" type="button" onclick="deleteItem({{ $supplier->id }})">
                             <i class="fa fa-trash" aria-hidden="true"></i>

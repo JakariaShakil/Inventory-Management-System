@@ -19,9 +19,15 @@ Auth::routes();
 
 Route::get('/', function() {
     return redirect('/login');
+
 });
+
+Route::group(['middleware' => ['auth']], function () { 
+    
+
+
 Route::get('/home', 'HomeController@index')->name('home');
-Route::group(['prefix' => 'users'], function () {
+Route::group(['prefix' => 'users', 'middleware'=>'isAdmin'], function () {
     Route::get('/view','Backend\UserController@view')->name('users.view');
     Route::get('/add','Backend\UserController@add')->name('users.add');
     Route::post('/store','Backend\UserController@store')->name('users.store');
@@ -58,6 +64,10 @@ Route::group(['prefix' => 'customers'], function () {
     Route::get('/edit/{id}','Backend\CustomerController@edit')->name('customers.edit');
     Route::post('/update/{id}','Backend\CustomerController@update')->name('customers.update');
     Route::delete('/delete/{id}','Backend\CustomerController@delete')->name('customers.delete');
+    Route::get('/credit','Backend\CustomerController@customerCredit')->name('customers.credit');
+    Route::get('/credit/pdf','Backend\CustomerController@customerCreditPdf')->name('customers.credit.pdf');
+    Route::get('/credit/edit/{invoice_id}', 'Backend\CustomerController@customerCreditEdit')->name('customer.credit.edit');
+    Route::post('/credit/update/{invoice_id}', 'Backend\CustomerController@customerCreditUpdate')->name('customer.credit.update');
 });
 Route::group(['prefix' => 'categories'], function () {
     Route::get('/view','Backend\CategoryController@view')->name('categories.view');
@@ -85,7 +95,7 @@ Route::group(['prefix' => 'units'], function () {
     Route::delete('/delete/{id}','Backend\UnitController@delete')->name('units.delete');
 });
 
-Route::group(['prefix' => 'employees'], function () {
+Route::group(['prefix' => 'employees','middleware'=>'isAdmin'], function () {
    //employee add,edit,delete
     Route::get('/view','Backend\EmployeeController@view')->name('employees.view');
     Route::get('/add','Backend\EmployeeController@add')->name('employees.add');
@@ -110,11 +120,14 @@ Route::group(['prefix' => 'employees'], function () {
 
 });
 
+//products
 Route::group(['prefix' => 'products'], function () {
     Route::get('/view','Backend\ProductController@view')->name('products.view');
     Route::get('/add','Backend\ProductController@add')->name('products.add');
     Route::post('/store','Backend\ProductController@store')->name('products.store');
     Route::get('/edit/{id}','Backend\ProductController@edit')->name('products.edit');
+    Route::get('/show-product/{id}','Backend\ProductController@showProduct')->name('products.show.product');
+
     Route::post('/update/{id}','Backend\ProductController@update')->name('products.update');
     Route::delete('/delete/{id}','Backend\ProductController@delete')->name('products.delete');
     Route::get('/products/barcode','Backend\ProductController@getProductsBarcode')->name('products.barcode');
@@ -154,18 +167,41 @@ Route::group(['prefix' => 'expenses'], function () {
     Route::get('/edit/{id}','Backend\ExpenseController@edit')->name('expenses.edit');
     Route::post('/update/{id}','Backend\ExpenseController@update')->name('expenses.update');
     Route::delete('/delete/{id}','Backend\ExpenseController@delete')->name('expenses.delete');
-});
-Route::get('expense-today', 'Backend\ExpenseController@today_expense')->name('expenses.today');
+    Route::get('expense-today', 'Backend\ExpenseController@today_expense')->name('expenses.today');
 Route::get('expense-month/{month?}', 'Backend\ExpenseController@month_expense')->name('expenses.month');
 Route::get('expense-yearly/{year?}', 'Backend\ExpenseController@yearly_expense')->name('expenses.yearly');
+});
+
 
 Route::group(['prefix' => 'stock'], function () {
     Route::get('/report','Backend\stockController@stockReport')->name('stock.report');
     Route::get('/report/pdf','Backend\stockController@stockReportPdf')->name('stock.report.pdf');
     Route::get('/supplier/product/wise','Backend\stockController@supplierProductWise')->name('supplier.product.report');  
-    Route::get('/supplier/wise/pdf','Backend\stockController@supplierProductWisePdf')->name('stock.supplier.product.report.pdf');
-    Route::get('/product/wise/pdf', 'Backend\stockController@productWisePdf')->name('stock.product.wise.pdf');  
+    Route::get('/report/supplier/wise/pdf','Backend\stockController@supplierProductWisePdf')->name('stock.supplier.report.pdf');
+    Route::get('/report/product/wise/pdf', 'Backend\stockController@productWisePdf')->name('stock.product.wise.pdf');  
 
 });
 
 
+Route::group(['prefix' => 'invoice'], function(){
+    Route::get('/view','Backend\InvoiceController@view')->name('invoice.view');
+    Route::get('/add','Backend\InvoiceController@add')->name('invoice.add'); 
+    Route::post('/store','Backend\InvoiceController@store')->name('invoice.store');
+    Route::get('/pending','Backend\InvoiceController@pendingList')->name('invoice.pending.list');
+    Route::get('/approve/{id}','Backend\InvoiceController@approve')->name('invoice.approve');
+    Route::delete('/delete/{id}','Backend\InvoiceController@delete')->name('invoice.delete');
+    Route::post('/approve/store/{id}','Backend\InvoiceController@approvalStore')->name('invoice.approval.store');
+    Route::get('/print/list', 'Backend\InvoiceController@printList')->name('invoice.print.list');
+    Route::get('/print/{id}', 'Backend\InvoiceController@print')->name('invoice.print');
+    Route::get('/daily/report', 'Backend\InvoiceController@dailyReport')->name('invoice.daily.report');
+    Route::get('/daily/report/pdf', 'Backend\InvoiceController@dailyReportPdf')->name('invoice.daily.report.pdf');
+
+
+
+});
+//json request
+Route::get('/get-stock','Backend\InvoiceController@getStock')->name('check-product-stock');
+
+
+
+});
